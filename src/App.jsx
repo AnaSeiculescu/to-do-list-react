@@ -1,20 +1,12 @@
-import { useState } from 'react'
 import './App.css';
-import {InputTask} from './components/InputTask';
+import { Container } from './components/Container';
 
 function App() {
-  const [taskName, setTaskName] = useState('');
-
-  function handlerChange(event) {
-    const input = event.target.value;
-    setTaskName(input);
-  }
-
-  return (
-    <div>
-      <InputTask value={taskName} onChange={handlerChange}/>
-    </div>
-  )
+    return (
+        <div>
+            <Container />
+        </div>
+    );
 }
 
-export default App
+export default App;
