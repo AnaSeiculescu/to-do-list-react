@@ -34,8 +34,6 @@ export function Container() {
             })
 
             .catch((error) => console.error('Error fetching todos:', error));
-
-        // console.log(todos);
     };
 
     const handleAddTodo = (todo) => {
@@ -58,7 +56,6 @@ export function Container() {
             })
             .catch((error) => console.error('Error adding todo:', error));
 
-        // console.log(todo);
         console.log(todos);
     };
 

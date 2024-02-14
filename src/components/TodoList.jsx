@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { FormItem } from './FormItem';
 
 export function TodoList({ todos, setTodos, fetchTodos }) {
-    // console.log('rendering todo list');
-
     return (
         <div>
             <Container
