@@ -2,7 +2,7 @@ import { Container } from '@mui/material';
 import PropTypes from 'prop-types';
 import { FormItem } from './FormItem';
 
-export function TodoList({ todos, setTodos, fetchTodos }) {
+export function TodoList({ todos, setTodos, handleUpdates, handleDeleteTodo }) {
     return (
         <div>
             <Container
@@ -22,9 +22,9 @@ export function TodoList({ todos, setTodos, fetchTodos }) {
                         >
                             <FormItem
                                 todo={todo}
-                                todos={todos}
                                 setTodos={setTodos}
-                                fetchTodos={fetchTodos}
+                                handleUpdates={handleUpdates}
+                                handleDeleteTodo={handleDeleteTodo}
                             />
                         </li>
                     ))}

@@ -19,6 +19,7 @@ import { TodoList } from './TodoList';
 
 export function Container() {
     const [todos, setTodos] = useState([]);
+
     const URL = 'http://localhost:3030/api/todos';
 
     useEffect(() => {
@@ -59,13 +60,49 @@ export function Container() {
         console.log(todos);
     };
 
+    const handleUpdates = (id, updatedTodo) => {
+        const URL = `http://localhost:3030/api/todos/${id}`;
+
+        fetch(URL, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedTodo),
+        })
+            .then((response) => response.json())
+            .then((updatedTodo) => {
+                setTodos((prevTodos) =>
+                    prevTodos.map((item) =>
+                        item.id === id ? { ...item, ...updatedTodo } : item
+                    )
+                );
+            })
+            .catch((error) => console.error('Error patching todo:', error));
+    };
+
+    const handleDeleteTodo = (id) => {
+        const URL = `http://localhost:3030/api/todos/${id}`;
+
+        fetch(URL, {
+            method: 'DELETE',
+        })
+            .then(() => {
+                setTodos((prevTodos) =>
+                    prevTodos.filter((item) => item.id !== id)
+                );
+            })
+            .catch((error) => console.log('Error deleting todo:', error));
+    };
+
     return (
         <div>
             <NewTodo onHandlerAddTodo={handleAddTodo} />
             <TodoList
                 todos={todos}
                 setTodos={setTodos}
-                fetchTodos={fetchTodos}
+                handleUpdates={handleUpdates}
+                handleDeleteTodo={handleDeleteTodo}
             />
         </div>
     );

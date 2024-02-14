@@ -4,34 +4,17 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { DeleteIconButton } from './DeleteIconButton';
 
-export function FormItem({ todo, todos, setTodos, fetchTodos }) {
+export function FormItem({ todo, setTodos, handleUpdates, handleDeleteTodo }) {
     const [checked, setChecked] = useState(todo.isCompleted);
 
-    console.log('todo este: ', todo);
+    // console.log('todo este: ', todo);
 
-    const handleChange = (ev, id, updatedTodo) => {
+    const handleCheckboxChange = (ev) => {
         setChecked(ev.target.checked);
-
-        console.log(todo);
-
-        const URL = `http://localhost:3030/api/todos/${id}`;
-
-        fetch(URL, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedTodo),
-        })
-            .then((response) => response.json())
-            .then((updatedTodo) => {
-                setTodos((prevTodos) =>
-                    prevTodos.map((item) =>
-                        item.id === id ? { ...item, ...updatedTodo } : item
-                    )
-                );
-            })
-            .catch((error) => console.error('Error patching todo:', error));
+        handleUpdates(todo.id, {
+            text: todo.text,
+            isCompleted: !todo.isCompleted,
+        });
     };
 
     return (
@@ -40,12 +23,7 @@ export function FormItem({ todo, todos, setTodos, fetchTodos }) {
                 control={
                     <Checkbox
                         checked={checked}
-                        onChange={() =>
-                            handleChange(event, todo.id, {
-                                text: todo.text,
-                                isCompleted: !todo.isCompleted,
-                            })
-                        }
+                        onChange={() => handleCheckboxChange(event)}
                         inputProps={{ 'aria-label': 'controlled' }}
                     />
                 }
@@ -53,9 +31,8 @@ export function FormItem({ todo, todos, setTodos, fetchTodos }) {
             />
             <DeleteIconButton
                 todo={todo}
-                todos={todos}
                 setTodos={setTodos}
-                fetchTodos={fetchTodos}
+                handleDeleteTodo={handleDeleteTodo}
             />
         </FormGroup>
     );
