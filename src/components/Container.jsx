@@ -19,6 +19,13 @@ import { TodoList } from './TodoList';
 
 export function Container() {
     const [todos, setTodos] = useState([]);
+    const [taskName, setTaskName] = useState('');
+
+    function handlerChangeInInput(event) {
+        // console.log(event);
+        const input = event.target.value;
+        setTaskName(input);
+    }
 
     const URL = 'http://localhost:3030/api/todos';
 
@@ -81,6 +88,15 @@ export function Container() {
             .catch((error) => console.error('Error patching todo:', error));
     };
 
+    const handleCheckboxChange = (todoItem) => {
+        // setChecked(event.target.checked);
+        todoItem.isCompleted = !todoItem.isCompleted;
+        handleUpdates(todoItem.id, {
+            text: todoItem.text,
+            isCompleted: todoItem.isCompleted,
+        });
+    };
+
     const handleDeleteTodo = (id) => {
         const URL = `http://localhost:3030/api/todos/${id}`;
 
@@ -97,12 +113,16 @@ export function Container() {
 
     return (
         <div>
-            <NewTodo onHandlerAddTodo={handleAddTodo} />
+            <NewTodo
+                onHandlerAddTodo={handleAddTodo}
+                handlerChangeInInput={handlerChangeInInput}
+                taskName={taskName}
+            />
             <TodoList
                 todos={todos}
                 setTodos={setTodos}
-                handleUpdates={handleUpdates}
                 handleDeleteTodo={handleDeleteTodo}
+                handleCheckboxChange={handleCheckboxChange}
             />
         </div>
     );
