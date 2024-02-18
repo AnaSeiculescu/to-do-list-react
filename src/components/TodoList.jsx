@@ -6,6 +6,7 @@ export function TodoList({
     todos,
     handleDeleteTodo,
     handleCheckboxChange,
+    handleUpdates,
     // handleEditTodo,
     // editing,
 }) {
@@ -30,6 +31,7 @@ export function TodoList({
                                 todo={todo}
                                 handleDeleteTodo={handleDeleteTodo}
                                 handleCheckboxChange={handleCheckboxChange}
+                                handleUpdates={handleUpdates}
                                 // handleEditTodo={handleEditTodo}
                                 // editing={editing}
                             />

@@ -1,42 +1,23 @@
 import { NewTodo } from './NewTodo';
 import { useState, useEffect } from 'react';
 import { TodoList } from './TodoList';
-
-// const x = fetch();
-// const y = x.then(() => {
-// })
-// function resolver() {
-//     return 'haha'
-// }
-// y.then(resolver)
-// y.then(() => 'haha');
-
-// function resolver() {
-//     const h = new Promise((res, rej) => { res('haha')});
-//     return h;
-// }
-// y.then(resolver);
+import { addTodos, deleteTodo, getTodos, updateTodo } from '../utils/api';
 
 export function Container() {
     const [todos, setTodos] = useState([]);
     const [taskName, setTaskName] = useState('');
-    // const [editing, setEditing] = useState(false);
 
     function handlerChangeInInput(event) {
-        // console.log(event);
         const input = event.target.value;
         setTaskName(input);
     }
-
-    const URL = 'http://localhost:3030/api/todos';
 
     useEffect(() => {
         fetchTodos();
     }, []);
 
     const fetchTodos = () => {
-        fetch(URL)
-            .then((response) => response.json())
+        getTodos()
             .then((data) => {
                 console.log('data', data);
                 setTodos(data);
@@ -46,19 +27,7 @@ export function Container() {
     };
 
     const handleAddTodo = (todo) => {
-        fetch(URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-
-            body: JSON.stringify(todo),
-        })
-            .then((response) => {
-                console.log('statusul este:', response.status);
-                const promiseDeBody = response.json();
-                return promiseDeBody;
-            })
+        addTodos(todo)
             .then((newTodo) => {
                 console.log('body-ul este: ', newTodo);
                 setTodos([...todos, newTodo]);
@@ -69,16 +38,7 @@ export function Container() {
     };
 
     const handleUpdates = (id, updatedTodo) => {
-        const URL = `http://localhost:3030/api/todos/${id}`;
-
-        fetch(URL, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedTodo),
-        })
-            .then((response) => response.json())
+        updateTodo(id, updatedTodo)
             .then((updatedTodo) => {
                 setTodos((prevTodos) =>
                     prevTodos.map((item) =>
@@ -99,11 +59,7 @@ export function Container() {
     };
 
     const handleDeleteTodo = (id) => {
-        const URL = `http://localhost:3030/api/todos/${id}`;
-
-        fetch(URL, {
-            method: 'DELETE',
-        })
+        deleteTodo(id)
             .then(() => {
                 setTodos((prevTodos) =>
                     prevTodos.filter((item) => item.id !== id)
@@ -111,10 +67,6 @@ export function Container() {
             })
             .catch((error) => console.log('Error deleting todo:', error));
     };
-
-    // const handleEditTodo = (id) => {
-    //     setEditing(true);
-    // };
 
     return (
         <div>
@@ -127,8 +79,7 @@ export function Container() {
                 todos={todos}
                 handleDeleteTodo={handleDeleteTodo}
                 handleCheckboxChange={handleCheckboxChange}
-                // handleEditTodo={handleEditTodo}
-                // editing={editing}
+                handleUpdates={handleUpdates}
             />
         </div>
     );

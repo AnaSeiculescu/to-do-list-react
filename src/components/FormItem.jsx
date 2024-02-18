@@ -3,22 +3,24 @@ import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { DeleteIconButton } from './DeleteIconButton';
-// import { EditTodo } from './EditTodo';
-import { TextField } from '@mui/material';
+import { EditableTodoInput } from './EditableTodoInput';
+// import { TextField } from '@mui/material';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import IconButton from '@mui/material/IconButton';
+// import IconButton from '@mui/material/IconButton';
+import ToggleButton from '@mui/material/ToggleButton';
 
 export function FormItem({
     todo,
     handleDeleteTodo,
     handleCheckboxChange,
+    handleUpdates,
     // handleEditTodo,
     // editing,
 }) {
     const [editing, setEditing] = useState(false);
 
     const handleEditTodo = () => {
-        setEditing(true);
+        setEditing(!editing);
     };
 
     return (
@@ -31,18 +33,47 @@ export function FormItem({
                             onChange={() => handleCheckboxChange(todo)}
                         />
                     }
-                    label={todo.text}
+                    label={
+                        editing ? (
+                            <EditableTodoInput
+                                todo={todo}
+                                handleUpdates={handleUpdates}
+                                editing={editing}
+                                setEditing={setEditing}
+                            ></EditableTodoInput>
+                        ) : (
+                            todo.text
+                        )
+                    }
                 />
                 {/* <EditTodo handleEditTodo={handleEditTodo} todo={todo} /> */}
-                <IconButton onClick={() => handleEditTodo(todo.id)}>
+                <ToggleButton
+                    value="editing"
+                    size="small"
+                    selected={editing}
+                    onChange={() => {
+                        handleEditTodo();
+                    }}
+                    style={{
+                        border: 'none',
+                    }}
+                >
                     <ModeEditIcon />
-                </IconButton>
+                </ToggleButton>
+
                 <DeleteIconButton
                     todo={todo}
                     handleDeleteTodo={handleDeleteTodo}
                 />
             </FormGroup>
-            {editing && <TextField value={todo.text}></TextField>}
+            {/* {editing && (
+                <EditableTodoInput
+                    todo={todo}
+                    handleUpdates={handleUpdates}
+                    editing={editing}
+                    setEditing={setEditing}
+                ></EditableTodoInput>
+            )} */}
         </div>
     );
 }
