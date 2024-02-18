@@ -20,6 +20,7 @@ import { TodoList } from './TodoList';
 export function Container() {
     const [todos, setTodos] = useState([]);
     const [taskName, setTaskName] = useState('');
+    // const [editing, setEditing] = useState(false);
 
     function handlerChangeInInput(event) {
         // console.log(event);
@@ -111,6 +112,10 @@ export function Container() {
             .catch((error) => console.log('Error deleting todo:', error));
     };
 
+    // const handleEditTodo = (id) => {
+    //     setEditing(true);
+    // };
+
     return (
         <div>
             <NewTodo
@@ -120,9 +125,10 @@ export function Container() {
             />
             <TodoList
                 todos={todos}
-                setTodos={setTodos}
                 handleDeleteTodo={handleDeleteTodo}
                 handleCheckboxChange={handleCheckboxChange}
+                // handleEditTodo={handleEditTodo}
+                // editing={editing}
             />
         </div>
     );

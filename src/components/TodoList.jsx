@@ -2,7 +2,13 @@ import { Container } from '@mui/material';
 import PropTypes from 'prop-types';
 import { FormItem } from './FormItem';
 
-export function TodoList({ todos, handleDeleteTodo, handleCheckboxChange }) {
+export function TodoList({
+    todos,
+    handleDeleteTodo,
+    handleCheckboxChange,
+    // handleEditTodo,
+    // editing,
+}) {
     return (
         <div>
             <Container
@@ -24,6 +30,8 @@ export function TodoList({ todos, handleDeleteTodo, handleCheckboxChange }) {
                                 todo={todo}
                                 handleDeleteTodo={handleDeleteTodo}
                                 handleCheckboxChange={handleCheckboxChange}
+                                // handleEditTodo={handleEditTodo}
+                                // editing={editing}
                             />
                         </li>
                     ))}
