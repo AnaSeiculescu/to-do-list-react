@@ -4,6 +4,11 @@ import { AddButton } from './AddButton';
 import PropTypes from 'prop-types';
 
 export function NewTodo({ onHandlerAddTodo, handlerChangeInInput, taskName }) {
+    const handlerKeyAddTodo = (event) => {
+        if (event.key === 'Enter') {
+            onHandlerAddTodo({ text: taskName, isCompleted: false });
+        }
+    };
     return (
         <div>
             <TextField
@@ -11,6 +16,7 @@ export function NewTodo({ onHandlerAddTodo, handlerChangeInInput, taskName }) {
                 size="small"
                 value={taskName}
                 onChange={handlerChangeInInput}
+                onKeyDown={handlerKeyAddTodo}
             ></TextField>
             <AddButton
                 onClick={() =>
