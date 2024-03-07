@@ -3,7 +3,7 @@ import { TextField } from '@mui/material';
 import { AddButton } from './AddButton';
 import PropTypes from 'prop-types';
 
-export function NewTodo({ onHandlerAddTodo, handlerChangeInInput, taskName }) {
+export function NewTodo({ onHandlerAddTodo, handlerChangeInput, taskName }) {
     const handlerKeyAddTodo = (event) => {
         if (event.key === 'Enter') {
             onHandlerAddTodo({ text: taskName, isCompleted: false });
@@ -15,7 +15,7 @@ export function NewTodo({ onHandlerAddTodo, handlerChangeInInput, taskName }) {
                 className="inputTask"
                 size="small"
                 value={taskName}
-                onChange={handlerChangeInInput}
+                onChange={handlerChangeInput}
                 onKeyDown={handlerKeyAddTodo}
             ></TextField>
             <AddButton

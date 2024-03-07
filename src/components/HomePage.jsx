@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react';
 import { TodoList } from './TodoList';
 import { addTodos, deleteTodo, getTodos, updateTodo } from '../utils/api';
 
-export function Container() {
+export function HomePage() {
     const [todos, setTodos] = useState([]);
     const [taskName, setTaskName] = useState('');
 
-    function handlerChangeInInput(event) {
+    function handlerChangeInput(event) {
         const input = event.target.value;
         setTaskName(input);
     }
@@ -72,7 +72,7 @@ export function Container() {
         <div>
             <NewTodo
                 onHandlerAddTodo={handleAddTodo}
-                handlerChangeInInput={handlerChangeInInput}
+                handlerChangeInput={handlerChangeInput}
                 taskName={taskName}
             />
             <TodoList
