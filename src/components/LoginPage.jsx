@@ -4,9 +4,27 @@ import TextField from '@mui/material/TextField';
 // import Button from '@mui/material/Button';
 import { useState } from 'react';
 // import React from 'react';
-import { Link, Route, Routes, useNavigate } from 'react-router-dom';
+// import { Link, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import todoImage from '../../pictures/todo_image.jpeg';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 
 export function LoginPage() {
+    const styleLoginPage = {
+        backgroundImage: `url(${todoImage})`,
+        width: '100vw',
+        height: '100vh',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        filter: 'grayscale(30%) opacity(0.7) brightness(0.3)',
+    };
+
     const navigate = useNavigate();
 
     const [userNameInput, setUserNameInput] = useState('');
@@ -23,44 +41,58 @@ export function LoginPage() {
     // const handleOnClikHomeButton = () => {};
 
     return (
-        <div>
-            <div>
-                <TextField
-                    required
-                    label="Username: required"
-                    // defaultValue="User Name"
-                    value={userNameInput}
-                    onChange={(event) =>
-                        handleInputChange(event, setUserNameInput)
-                    }
-                    style={inputsStyle}
-                />
-            </div>
-            <div>
-                <TextField
-                    required
-                    label="Password: required"
-                    // defaultValue="Password"
-                    type="password"
-                    value={passInput}
-                    onChange={(event) => handleInputChange(event, setPassInput)}
-                    style={inputsStyle}
-                />
-            </div>
-            {/* <Link
-                to="/home-page"
-                // size="small"
-                // onClick={handleOnClikHomeButton}
-                // style={{
-                //     margin: '5px 10px',
-                //     // textTransform: 'none'
-                // }}
+        <div style={styleLoginPage}>
+            <Card
+                sx={{ maxWidth: 400 }}
+                style={{
+                    textAlign: 'center',
+                    margin: 'auto',
+                    filter: 'invert(0%)',
+                }}
             >
-                Home
-            </Link> */}
-            <Button variant="contained" onClick={() => navigate('/home-page')}>
-                Submit
-            </Button>
+                <CardContent>
+                    <TextField
+                        required
+                        label="Username: required"
+                        // defaultValue="User Name"
+                        value={userNameInput}
+                        onChange={(event) =>
+                            handleInputChange(event, setUserNameInput)
+                        }
+                        style={inputsStyle}
+                    />
+                    <TextField
+                        required
+                        label="Password: required"
+                        // defaultValue="Password"
+                        type="password"
+                        value={passInput}
+                        onChange={(event) =>
+                            handleInputChange(event, setPassInput)
+                        }
+                        style={inputsStyle}
+                    />
+                </CardContent>
+
+                {/* <Link
+                    to="/home-page"
+                    // size="small"
+                    // onClick={handleOnClikHomeButton}
+                    // style={{
+                    //     margin: '5px 10px',
+                    //     // textTransform: 'none'
+                    // }}
+                >
+                    Home
+                </Link> */}
+                <Button
+                    variant="contained"
+                    onClick={() => navigate('/home-page')}
+                >
+                    Submit
+                </Button>
+            </Card>
+
             <Routes>
                 <Route
                     path="/green"
