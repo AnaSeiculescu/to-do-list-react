@@ -13,7 +13,7 @@ authRouter.post('/sign-in', async (req, res) => {
     await waitFor(TWO_SECONDS);
 
     if (username === 'ana' && password === 'mere') {
-        res.send({ token: MOCK_ACCESS_TOKEN });
+        res.status(200).send({ token: MOCK_ACCESS_TOKEN });
     } else {
         res.status(401).send({ error: 'Bad username or password' });
     }
