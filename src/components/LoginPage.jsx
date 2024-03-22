@@ -2,15 +2,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
-
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-// import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-// import todoImage from '../../public/pictures/todo_image.jpeg';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-// import Grid from '@mui/material/Grid';
 import '../utils/StyleLoginPage.css';
 import Stack from '@mui/material/Stack';
 import { grey } from '@mui/material/colors';
@@ -22,8 +18,11 @@ export function LoginPage() {
     const [passInput, setPassInput] = useState('');
 
     const inputsStyle = {
-        marginBottom: '15px',
-        display: 'inline-block',
+        marginBottom: '21px',
+    };
+
+    const labelsStyle = {
+        marginBottom: '7px',
     };
 
     const handleInputChange = (event, properSetter) => {
@@ -37,8 +36,6 @@ export function LoginPage() {
             {/* <Grid container> */}
             <Card
                 sx={{
-                    // width: '100%',
-                    // height: 400,
                     boxShadow: 5,
                     display: 'grid',
                     padding: '16px',
@@ -47,13 +44,12 @@ export function LoginPage() {
             >
                 <CardContent
                     sx={{
-                        alignSelf: 'center',
                         textAlign: 'left',
                     }}
                 >
                     <Box
                         sx={{
-                            marginBottom: '24px',
+                            marginBottom: '40px',
                         }}
                     >
                         <Typography variant="h5" fontWeight="fontWeightBold">
@@ -65,27 +61,31 @@ export function LoginPage() {
                     </Box>
 
                     <Box>
-                        <Typography fontWeight="fontWeightBold">Username</Typography>
+                        <Typography fontWeight="fontWeightBold" sx={labelsStyle}>
+                            Username:
+                        </Typography>
                         <TextField
                             required
                             id="outlined-required"
                             label="Required"
                             value={userNameInput}
                             onChange={(event) => handleInputChange(event, setUserNameInput)}
-                            style={inputsStyle}
+                            sx={inputsStyle}
                             fullWidth
                         />
                     </Box>
 
-                    <Box borderBottom={1} borderColor={mySecondaryColor} marginBottom="40px">
-                        <Typography fontWeight="fontWeightBold">Password</Typography>
+                    <Box borderBottom={1} borderColor={mySecondaryColor} marginBottom="48px">
+                        <Typography fontWeight="fontWeightBold" sx={labelsStyle}>
+                            Password:
+                        </Typography>
                         <TextField
                             required
                             label="Required"
                             type="password"
                             value={passInput}
                             onChange={(event) => handleInputChange(event, setPassInput)}
-                            style={inputsStyle}
+                            sx={inputsStyle}
                             fullWidth
                         />
                         <Typography gutterBottom color="primary" fontSize={14} sx={{ cursor: 'pointer' }}>
@@ -97,14 +97,14 @@ export function LoginPage() {
                 <Stack direction="row" spacing={22} justifyContent="center" alignSelf="flex-end">
                     <Button
                         variant="outlined"
-                        sx={{ color: 'black', border: '1px solid black' }}
+                        sx={{ color: 'black', border: '1px solid black', boxShadow: 3 }}
                         onClick={() => navigate('/home-page')}
                     >
                         Sing Up
                     </Button>
                     <Button
                         variant="contained"
-                        sx={{ bgcolor: 'black', color: 'white' }}
+                        sx={{ bgcolor: 'black', color: 'white', boxShadow: 3 }}
                         onClick={() => navigate('/home-page')}
                     >
                         Sing In
@@ -112,33 +112,6 @@ export function LoginPage() {
                 </Stack>
             </Card>
             {/* </Grid> */}
-
-            {/* <Routes>
-                <Route
-                    path="/green"
-                    element={
-                        <div
-                            style={{
-                                width: 50,
-                                height: 50,
-                                background: 'green',
-                            }}
-                        />
-                    }
-                />
-                <Route
-                    path="/yellow"
-                    element={
-                        <div
-                            style={{
-                                width: 50,
-                                height: 50,
-                                background: 'yellow',
-                            }}
-                        />
-                    }
-                /> */}
-            {/* </Routes> */}
         </div>
     );
 }
