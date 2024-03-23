@@ -1,0 +1,15 @@
+
+.styleLoginPage::before {
+    content: '';
+    background-image: url(./pictures/todo_image.jpeg);
+    width: 100vw;
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: grayscale(30%) opacity(0.65) brightness(0.30);
+   z-index: -1;
+}
