@@ -4,14 +4,15 @@ import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import { grey } from '@mui/material/colors';
+import { useAuth } from '../../utils/constants';
 
 export function LoginPage() {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const inputsStyle = {
         marginBottom: '21px',
@@ -26,18 +27,21 @@ export function LoginPage() {
         password: '',
     });
 
-    const handleLogin = (username, password) => {
-        if (username === 'ana' && password === 'mere') {
-            alert('Login successfull!');
-        } else {
-            alert('Invalid credentials. Please try again!');
-        }
-    };
+    // const handleLogin = (username, password) => {
+    //     if (username === 'ana' && password === 'mere') {
+    //         alert('Login successfull!');
+    //     } else {
+    //         alert('Invalid credentials. Please try again!');
+    //     }
+    // };
 
+    const auth = useAuth();
     const handleSubmitEvent = (e) => {
         e.preventDefault();
         if (userInput.username !== '' && userInput.password !== '') {
-            handleLogin(userInput.username, userInput.password);
+            // handleLogin(userInput.username, userInput.password);
+            auth.loginAction(userInput);
+            return;
         } else {
             alert('Please provide valid input');
         }

@@ -5,7 +5,6 @@ import './index.css';
 import { ThemeProvider, createTheme } from '@mui/material';
 
 import { orange } from '@mui/material/colors';
-import CssBaseline from '@mui/material/CssBaseline';
 
 const theme = createTheme({
     status: {
