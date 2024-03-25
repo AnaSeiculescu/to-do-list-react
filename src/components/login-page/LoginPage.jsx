@@ -4,10 +4,9 @@ import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import '../utils/StyleLoginPage.css';
 import Stack from '@mui/material/Stack';
 import { grey } from '@mui/material/colors';
 
@@ -32,14 +31,28 @@ export function LoginPage() {
     const mySecondaryColor = grey[500];
 
     return (
-        <div className="styleLoginPage">
-            {/* <Grid container> */}
+        <Box
+            sx={{
+                '&::before': {
+                    content: '""',
+                    backgroundImage: 'url(../../pictures/todo_image.jpeg)',
+                    width: '100vw',
+                    height: '100vh',
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    position: 'absolute',
+                    top: '0',
+                    left: '0',
+                    filter: 'grayscale(30%) opacity(0.65) brightness(0.30)',
+                    zIndex: '-1',
+                },
+            }}
+        >
             <Card
                 sx={{
                     boxShadow: 5,
-                    display: 'grid',
                     padding: '16px',
-                    alignItems: 'stretch',
                 }}
             >
                 <CardContent
@@ -94,7 +107,7 @@ export function LoginPage() {
                     </Box>
                 </CardContent>
 
-                <Stack direction="row" spacing={22} justifyContent="center" alignSelf="flex-end">
+                <Stack direction="row" spacing={22}>
                     <Button
                         variant="outlined"
                         sx={{ color: 'black', border: '1px solid black', boxShadow: 3 }}
@@ -111,7 +124,6 @@ export function LoginPage() {
                     </Button>
                 </Stack>
             </Card>
-            {/* </Grid> */}
-        </div>
+        </Box>
     );
 }

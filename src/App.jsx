@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { LoginPage } from './components/LoginPage';
+import { LoginPage } from './components/login-page/LoginPage';
 import { HomePage } from './components/HomePage';
 // import CssBaseline from '@mui/material/CssBaseline';
 
