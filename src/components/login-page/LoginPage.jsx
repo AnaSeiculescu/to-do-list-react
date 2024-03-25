@@ -13,22 +13,50 @@ import { grey } from '@mui/material/colors';
 export function LoginPage() {
     const navigate = useNavigate();
 
-    const [userNameInput, setUserNameInput] = useState('');
-    const [passInput, setPassInput] = useState('');
+    // const [userNameInput, setUserNameInput] = useState('');
+    // const [passInput, setPassInput] = useState('');
 
     const inputsStyle = {
         marginBottom: '21px',
     };
-
     const labelsStyle = {
         marginBottom: '7px',
     };
+    const mySecondaryColor = grey[500];
 
-    const handleInputChange = (event, properSetter) => {
-        properSetter(event.target.value);
+    // const handleInputChange = (event, properSetter) => {
+    //     properSetter(event.target.value);
+    // };
+
+    const [userInput, setUserInput] = useState({
+        username: '',
+        password: '',
+    });
+
+    const handleLogin = (username, password) => {
+        if (username === 'ana' && password === 'mere') {
+            alert('Login successfull!');
+        } else {
+            alert('Invalid credentials. Please try again!');
+        }
     };
 
-    const mySecondaryColor = grey[500];
+    const handleSubmitEvent = (e) => {
+        e.preventDefault();
+        if (userInput.username !== '' && userInput.password !== '') {
+            handleLogin(userInput.username, userInput.password);
+        } else {
+            alert('Please provide valid input');
+        }
+    };
+
+    const handleInput = (e) => {
+        const { name, value } = e.target;
+        setUserInput((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
 
     return (
         <Box
@@ -80,9 +108,10 @@ export function LoginPage() {
                         <TextField
                             required
                             id="outlined-required"
+                            name="username"
                             label="Required"
-                            value={userNameInput}
-                            onChange={(event) => handleInputChange(event, setUserNameInput)}
+                            value={userInput.username}
+                            onChange={(event) => handleInput(event)}
                             sx={inputsStyle}
                             fullWidth
                         />
@@ -94,10 +123,11 @@ export function LoginPage() {
                         </Typography>
                         <TextField
                             required
+                            name="password"
                             label="Required"
                             type="password"
-                            value={passInput}
-                            onChange={(event) => handleInputChange(event, setPassInput)}
+                            value={userInput.password}
+                            onChange={(event) => handleInput(event)}
                             sx={inputsStyle}
                             fullWidth
                         />
@@ -111,14 +141,16 @@ export function LoginPage() {
                     <Button
                         variant="outlined"
                         sx={{ color: 'black', border: '1px solid black', boxShadow: 3 }}
-                        onClick={() => navigate('/home-page')}
+                        // onClick={() => navigate('/home-page')}
                     >
                         Sing Up
                     </Button>
                     <Button
                         variant="contained"
                         sx={{ bgcolor: 'black', color: 'white', boxShadow: 3 }}
-                        onClick={() => navigate('/home-page')}
+                        // onClick={() => navigate('/home-page')}
+                        onClick={handleSubmitEvent}
+                        onSubmit={handleSubmitEvent}
                     >
                         Sing In
                     </Button>
