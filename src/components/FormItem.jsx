@@ -4,19 +4,10 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { DeleteIconButton } from './DeleteIconButton';
 import { EditableTodoInput } from './EditableTodoInput';
-// import { TextField } from '@mui/material';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-// import IconButton from '@mui/material/IconButton';
 import ToggleButton from '@mui/material/ToggleButton';
 
-export function FormItem({
-    todo,
-    handleDeleteTodo,
-    handleCheckboxChange,
-    handleUpdates,
-    // handleEditTodo,
-    // editing,
-}) {
+export function FormItem({ todo, handleDeleteTodo, handleCheckboxChange, handleUpdates }) {
     const [editing, setEditing] = useState(false);
 
     const handleEditTodo = () => {
@@ -27,12 +18,7 @@ export function FormItem({
         <div>
             <FormGroup row={true}>
                 <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={todo.isCompleted}
-                            onChange={() => handleCheckboxChange(todo)}
-                        />
-                    }
+                    control={<Checkbox checked={todo.isCompleted} onChange={() => handleCheckboxChange(todo)} />}
                     label={
                         editing ? (
                             <EditableTodoInput
@@ -46,7 +32,6 @@ export function FormItem({
                         )
                     }
                 />
-                {/* <EditTodo handleEditTodo={handleEditTodo} todo={todo} /> */}
                 <ToggleButton
                     value="editing"
                     size="small"
@@ -61,19 +46,8 @@ export function FormItem({
                     <ModeEditIcon />
                 </ToggleButton>
 
-                <DeleteIconButton
-                    todo={todo}
-                    handleDeleteTodo={handleDeleteTodo}
-                />
+                <DeleteIconButton todo={todo} handleDeleteTodo={handleDeleteTodo} />
             </FormGroup>
-            {/* {editing && (
-                <EditableTodoInput
-                    todo={todo}
-                    handleUpdates={handleUpdates}
-                    editing={editing}
-                    setEditing={setEditing}
-                ></EditableTodoInput>
-            )} */}
         </div>
     );
 }

@@ -1,12 +1,7 @@
 import { TextField } from '@mui/material';
 import { useState } from 'react';
 
-export function EditableTodoInput({
-    todo,
-    editing,
-    setEditing,
-    handleUpdates,
-}) {
+export function EditableTodoInput({ todo, editing, setEditing, handleUpdates }) {
     const [editedTask, setEditedTask] = useState(todo.text);
 
     const handlerChangeEditedInput = (event) => {
@@ -24,12 +19,5 @@ export function EditableTodoInput({
         }
     };
 
-    return (
-        <TextField
-            value={editedTask}
-            // placeholder={todo.text}
-            onChange={handlerChangeEditedInput}
-            onKeyDown={handleEditingDone}
-        ></TextField>
-    );
+    return <TextField value={editedTask} onChange={handlerChangeEditedInput} onKeyDown={handleEditingDone}></TextField>;
 }

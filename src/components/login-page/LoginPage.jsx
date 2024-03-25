@@ -13,9 +13,6 @@ import { grey } from '@mui/material/colors';
 export function LoginPage() {
     const navigate = useNavigate();
 
-    // const [userNameInput, setUserNameInput] = useState('');
-    // const [passInput, setPassInput] = useState('');
-
     const inputsStyle = {
         marginBottom: '21px',
     };
@@ -23,10 +20,6 @@ export function LoginPage() {
         marginBottom: '7px',
     };
     const mySecondaryColor = grey[500];
-
-    // const handleInputChange = (event, properSetter) => {
-    //     properSetter(event.target.value);
-    // };
 
     const [userInput, setUserInput] = useState({
         username: '',
