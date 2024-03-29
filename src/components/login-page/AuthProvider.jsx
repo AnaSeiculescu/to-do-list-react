@@ -7,7 +7,16 @@ const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('power') || '');
     const navigate = useNavigate();
 
-    const loginAction = async (data) => {
+    // const [isLoading, setIsLoading] = useState(true);
+
+    const loginAction = async (userAndPass) => {
+        /* 
+        1. face request catre api cu username si parola
+        2. din raspunsul de la api extrage token
+        3. se face update la state-ul tokenului (nu e tocmai state ca la carte)
+            tokenul se salveaza in local storage / session storage / in memorie (o variabla, gen state)
+        4. se face update la state-ul userului
+        */
         try {
             const apiResponse = await fetch('http://localhost:3030/auth/sign-in', {
                 method: 'POST',
@@ -15,19 +24,22 @@ const AuthProvider = ({ children }) => {
                     'Content-Type': 'application/json',
                 },
 
-                body: JSON.stringify(data),
+                body: JSON.stringify(userAndPass),
             });
             const result = await apiResponse.json();
-            if (result.data) {
-                setUser(result.data.user);
+            console.log(result);
+            if (result.token) {
+                // setUser(result.data.userInput);
                 setToken(result.token);
                 localStorage.setItem('power', result.token);
+                // setIsLoading(false);
                 navigate('/home-page');
                 return;
             }
             throw new Error(result.message);
         } catch (err) {
             console.log(err);
+            // throw err;
         }
     };
 

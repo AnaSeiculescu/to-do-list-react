@@ -8,8 +8,9 @@ import { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
-import { grey } from '@mui/material/colors';
+import { grey, yellow } from '@mui/material/colors';
 import { useAuth } from '../../utils/constants';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export function LoginPage() {
     // const navigate = useNavigate();
@@ -21,11 +22,14 @@ export function LoginPage() {
         marginBottom: '7px',
     };
     const mySecondaryColor = grey[500];
+    // const spinnerColor = yellow[500];
 
     const [userInput, setUserInput] = useState({
         username: '',
         password: '',
     });
+
+    const [isLoading, setIsLoading] = useState(false);
 
     // const handleLogin = (username, password) => {
     //     if (username === 'ana' && password === 'mere') {
@@ -36,14 +40,22 @@ export function LoginPage() {
     // };
 
     const auth = useAuth();
+    const handleLogingOnClick = () => {
+        setIsLoading(true);
+    };
     const handleSubmitEvent = (e) => {
         e.preventDefault();
+
+        // console.log('Loading is ', isLoading);
         if (userInput.username !== '' && userInput.password !== '') {
             // handleLogin(userInput.username, userInput.password);
-            auth.loginAction(userInput);
+            handleLogingOnClick();
+            auth.loginAction(userInput).then(() => setIsLoading(false));
+            // console.log('Loading is ', isLoading);
             return;
         } else {
             alert('Please provide valid input');
+            // console.log('Loading is ', isLoading);
         }
     };
 
@@ -147,9 +159,10 @@ export function LoginPage() {
                         sx={{ bgcolor: 'black', color: 'white', boxShadow: 3 }}
                         // onClick={() => navigate('/home-page')}
                         onClick={handleSubmitEvent}
-                        onSubmit={handleSubmitEvent}
+                        // onSubmit={handleSubmitEvent}
                     >
-                        Sing In
+                        {isLoading && <CircularProgress size={20} sx={{ color: 'white', marginRight: '5px' }} />} Sing
+                        In
                     </Button>
                 </Stack>
             </Card>
