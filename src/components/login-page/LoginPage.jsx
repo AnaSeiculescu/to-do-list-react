@@ -8,7 +8,7 @@ import { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
-import { grey, yellow } from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 import { useAuth } from '../../utils/constants';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -22,7 +22,6 @@ export function LoginPage() {
         marginBottom: '7px',
     };
     const mySecondaryColor = grey[500];
-    // const spinnerColor = yellow[500];
 
     const [userInput, setUserInput] = useState({
         username: '',
@@ -30,6 +29,8 @@ export function LoginPage() {
     });
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const [isDisabled, setIsDisabled] = useState(false);
 
     // const handleLogin = (username, password) => {
     //     if (username === 'ana' && password === 'mere') {
@@ -42,15 +43,18 @@ export function LoginPage() {
     const auth = useAuth();
     const handleLogingOnClick = () => {
         setIsLoading(true);
+        setIsDisabled(true);
     };
     const handleSubmitEvent = (e) => {
         e.preventDefault();
-
         // console.log('Loading is ', isLoading);
         if (userInput.username !== '' && userInput.password !== '') {
             // handleLogin(userInput.username, userInput.password);
             handleLogingOnClick();
-            auth.loginAction(userInput).then(() => setIsLoading(false));
+            auth.loginAction(userInput).then(() => {
+                setIsLoading(false);
+                setIsDisabled(false);
+            });
             // console.log('Loading is ', isLoading);
             return;
         } else {
@@ -90,6 +94,7 @@ export function LoginPage() {
                 sx={{
                     boxShadow: 5,
                     padding: '16px',
+                    width: '380px',
                 }}
             >
                 <CardContent
@@ -116,6 +121,7 @@ export function LoginPage() {
                         </Typography>
                         <TextField
                             required
+                            disabled={isDisabled}
                             id="outlined-required"
                             name="username"
                             label="Required"
@@ -132,6 +138,7 @@ export function LoginPage() {
                         </Typography>
                         <TextField
                             required
+                            disabled={isDisabled}
                             name="password"
                             label="Required"
                             type="password"
@@ -146,9 +153,10 @@ export function LoginPage() {
                     </Box>
                 </CardContent>
 
-                <Stack direction="row" spacing={22}>
+                <Stack direction="row" sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Button
                         variant="outlined"
+                        disabled={isDisabled}
                         sx={{ color: 'black', border: '1px solid black', boxShadow: 3 }}
                         // onClick={() => navigate('/home-page')}
                     >
@@ -156,13 +164,19 @@ export function LoginPage() {
                     </Button>
                     <Button
                         variant="contained"
+                        disabled={isDisabled}
                         sx={{ bgcolor: 'black', color: 'white', boxShadow: 3 }}
                         // onClick={() => navigate('/home-page')}
                         onClick={handleSubmitEvent}
                         // onSubmit={handleSubmitEvent}
                     >
-                        {isLoading && <CircularProgress size={20} sx={{ color: 'white', marginRight: '5px' }} />} Sing
-                        In
+                        {isLoading && <CircularProgress size={25} sx={{ marginRight: '7px' }} />}
+                        Sing In
+                        {/* {isDisabled ? (
+                            <CircularProgress size={25} sx={{ color: 'blue', marginRight: '5px' }} />
+                        ) : (
+                            'Sing In'
+                        )} */}
                     </Button>
                 </Stack>
             </Card>
