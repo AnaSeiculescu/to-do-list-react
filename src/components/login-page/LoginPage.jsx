@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack';
 import { grey } from '@mui/material/colors';
 import { useAuth } from '../../utils/constants';
 import CircularProgress from '@mui/material/CircularProgress';
+import Snackbar from '@mui/material/Snackbar';
 
 export function LoginPage() {
     // const navigate = useNavigate();
@@ -29,16 +30,21 @@ export function LoginPage() {
     });
 
     const [isLoading, setIsLoading] = useState(false);
-
     const [isDisabled, setIsDisabled] = useState(false);
+    const [alertMsg, setAlertMsg] = useState({
+        open: false,
+        vertical: 'top',
+        horizontal: 'center',
+    });
+    const { vertical, horizontal, open } = alertMsg;
 
-    // const handleLogin = (username, password) => {
-    //     if (username === 'ana' && password === 'mere') {
-    //         alert('Login successfull!');
-    //     } else {
-    //         alert('Invalid credentials. Please try again!');
-    //     }
-    // };
+    const handleAlertOnClick = () => {
+        setAlertMsg({ ...alertMsg, open: true });
+    };
+
+    const handleAlertOnCLose = () => {
+        setAlertMsg({ ...alertMsg, open: false });
+    };
 
     const auth = useAuth();
     const handleLogingOnClick = () => {
@@ -47,19 +53,18 @@ export function LoginPage() {
     };
     const handleSubmitEvent = (e) => {
         e.preventDefault();
-        // console.log('Loading is ', isLoading);
+
         if (userInput.username !== '' && userInput.password !== '') {
-            // handleLogin(userInput.username, userInput.password);
             handleLogingOnClick();
             auth.loginAction(userInput).then(() => {
                 setIsLoading(false);
                 setIsDisabled(false);
             });
-            // console.log('Loading is ', isLoading);
+
             return;
         } else {
-            alert('Please provide valid input');
-            // console.log('Loading is ', isLoading);
+            // alert('Please provide valid input');
+            handleAlertOnClick();
         }
     };
 
@@ -177,6 +182,16 @@ export function LoginPage() {
                         ) : (
                             'Sing In'
                         )} */}
+                        {setAlertMsg && (
+                            <Snackbar
+                                anchorOrigin={{ vertical, horizontal }}
+                                open={open}
+                                onClose={handleAlertOnCLose}
+                                message="Please provide valid input"
+                                key={vertical + horizontal}
+                                sx={{ textAlign: 'center' }}
+                            />
+                        )}
                     </Button>
                 </Stack>
             </Card>
