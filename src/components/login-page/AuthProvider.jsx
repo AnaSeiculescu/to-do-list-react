@@ -7,8 +7,6 @@ const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('power') || '');
     const navigate = useNavigate();
 
-    // const [isLoading, setIsLoading] = useState(true);
-
     const loginAction = async (userAndPass) => {
         /* 
         1. face request catre api cu username si parola
@@ -27,8 +25,7 @@ const AuthProvider = ({ children }) => {
                 body: JSON.stringify(userAndPass),
             });
             const result = await apiResponse.json();
-            console.log(result);
-            if (result.token) {
+            if (apiResponse.status === 200) {
                 // setUser(result.data.userInput);
                 setToken(result.token);
                 localStorage.setItem('power', result.token);

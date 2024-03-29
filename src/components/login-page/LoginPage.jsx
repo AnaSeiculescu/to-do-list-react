@@ -63,7 +63,6 @@ export function LoginPage() {
 
             return;
         } else {
-            // alert('Please provide valid input');
             handleAlertOnClick();
         }
     };
