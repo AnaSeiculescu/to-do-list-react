@@ -40,17 +40,12 @@ export function HomePage() {
     const handleUpdates = (id, updatedTodo) => {
         updateTodo(id, updatedTodo)
             .then((updatedTodo) => {
-                setTodos((prevTodos) =>
-                    prevTodos.map((item) =>
-                        item.id === id ? { ...item, ...updatedTodo } : item
-                    )
-                );
+                setTodos((prevTodos) => prevTodos.map((item) => (item.id === id ? { ...item, ...updatedTodo } : item)));
             })
             .catch((error) => console.error('Error patching todo:', error));
     };
 
     const handleCheckboxChange = (todoItem) => {
-        // setChecked(event.target.checked);
         todoItem.isCompleted = !todoItem.isCompleted;
         handleUpdates(todoItem.id, {
             text: todoItem.text,
@@ -61,20 +56,14 @@ export function HomePage() {
     const handleDeleteTodo = (id) => {
         deleteTodo(id)
             .then(() => {
-                setTodos((prevTodos) =>
-                    prevTodos.filter((item) => item.id !== id)
-                );
+                setTodos((prevTodos) => prevTodos.filter((item) => item.id !== id));
             })
             .catch((error) => console.log('Error deleting todo:', error));
     };
 
     return (
         <div>
-            <NewTodo
-                onHandlerAddTodo={handleAddTodo}
-                handlerChangeInput={handlerChangeInput}
-                taskName={taskName}
-            />
+            <NewTodo onHandlerAddTodo={handleAddTodo} handlerChangeInput={handlerChangeInput} taskName={taskName} />
             <TodoList
                 todos={todos}
                 handleDeleteTodo={handleDeleteTodo}

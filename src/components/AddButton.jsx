@@ -9,7 +9,6 @@ export function AddButton({ onClick }) {
             onClick={onClick}
             style={{
                 margin: '5px 10px',
-                // textTransform: 'none'
             }}
         >
             add task

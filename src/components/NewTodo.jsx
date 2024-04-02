@@ -1,5 +1,4 @@
 import { TextField } from '@mui/material';
-// import { useState } from 'react';
 import { AddButton } from './AddButton';
 import PropTypes from 'prop-types';
 
@@ -18,11 +17,7 @@ export function NewTodo({ onHandlerAddTodo, handlerChangeInput, taskName }) {
                 onChange={handlerChangeInput}
                 onKeyDown={handlerKeyAddTodo}
             ></TextField>
-            <AddButton
-                onClick={() =>
-                    onHandlerAddTodo({ text: taskName, isCompleted: false })
-                }
-            />
+            <AddButton onClick={() => onHandlerAddTodo({ text: taskName, isCompleted: false })} />
         </div>
     );
 }
