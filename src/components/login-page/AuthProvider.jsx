@@ -29,13 +29,13 @@ const AuthProvider = ({ children }) => {
                 // setUser(result.data.userInput);
                 setToken(result.token);
                 localStorage.setItem('power', result.token);
-                // setIsLoading(false);
                 navigate('/home-page');
-                return;
+                return { loginSuccessful: true };
             }
             throw new Error(result.message);
         } catch (err) {
             console.log(err);
+            return { loginSuccessful: false };
             // throw err;
         }
     };
