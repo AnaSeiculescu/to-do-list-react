@@ -14,6 +14,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 
 export function LoginPage() {
+    console.log('reneding login page');
     // const navigate = useNavigate();
 
     const inputsStyle = {
@@ -30,35 +31,32 @@ export function LoginPage() {
     });
 
     const [isLoading, setIsLoading] = useState(false);
-    const [isDisabled, setIsDisabled] = useState(false);
     const [alertMsg, setAlertMsg] = useState({
         open: false,
-        vertical: 'top',
-        horizontal: 'center',
     });
-    const { vertical, horizontal, open } = alertMsg;
 
     const handleAlertOnClick = () => {
-        setAlertMsg({ ...alertMsg, open: true });
+        setAlertMsg({ open: true });
     };
 
     const handleAlertOnCLose = () => {
-        setAlertMsg({ ...alertMsg, open: false });
+        setAlertMsg({ open: false });
     };
 
     const auth = useAuth();
     const handleLogingOnClick = () => {
         setIsLoading(true);
-        setIsDisabled(true);
     };
     const handleSubmitEvent = (e) => {
         e.preventDefault();
 
         if (userInput.username !== '' && userInput.password !== '') {
             handleLogingOnClick();
-            auth.loginAction(userInput).then(() => {
+            auth.loginAction(userInput).then(({ loginSuccessfull }) => {
+                if (!loginSuccessfull) {
+                    setAlertMsg({ open: true });
+                }
                 setIsLoading(false);
-                setIsDisabled(false);
             });
 
             return;
@@ -75,6 +73,7 @@ export function LoginPage() {
         }));
     };
 
+    // console.log('alertMsg.open: ', alertMsg.open);
     return (
         <Box
             sx={{
@@ -125,7 +124,7 @@ export function LoginPage() {
                         </Typography>
                         <TextField
                             required
-                            disabled={isDisabled}
+                            disabled={isLoading}
                             id="outlined-required"
                             name="username"
                             label="Required"
@@ -142,7 +141,7 @@ export function LoginPage() {
                         </Typography>
                         <TextField
                             required
-                            disabled={isDisabled}
+                            disabled={isLoading}
                             name="password"
                             label="Required"
                             type="password"
@@ -160,37 +159,29 @@ export function LoginPage() {
                 <Stack direction="row" sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Button
                         variant="outlined"
-                        disabled={isDisabled}
+                        disabled={isLoading}
                         sx={{ color: 'black', border: '1px solid black', boxShadow: 3 }}
                         // onClick={() => navigate('/home-page')}
                     >
-                        Sing Up
+                        Sign Up
                     </Button>
                     <Button
                         variant="contained"
-                        disabled={isDisabled}
+                        disabled={isLoading}
                         sx={{ bgcolor: 'black', color: 'white', boxShadow: 3 }}
                         // onClick={() => navigate('/home-page')}
                         onClick={handleSubmitEvent}
                         // onSubmit={handleSubmitEvent}
                     >
                         {isLoading && <CircularProgress size={25} sx={{ marginRight: '7px' }} />}
-                        Sing In
-                        {/* {isDisabled ? (
-                            <CircularProgress size={25} sx={{ color: 'blue', marginRight: '5px' }} />
-                        ) : (
-                            'Sing In'
-                        )} */}
-                        {setAlertMsg && (
-                            <Snackbar
-                                anchorOrigin={{ vertical, horizontal }}
-                                open={open}
-                                onClose={handleAlertOnCLose}
-                                message="Please provide valid input"
-                                key={vertical + horizontal}
-                                sx={{ textAlign: 'center' }}
-                            />
-                        )}
+                        Sign In
+                        <Snackbar
+                            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                            open={alertMsg.open}
+                            onClose={handleAlertOnCLose}
+                            message="Please provide valid input"
+                            sx={{ textAlign: 'center' }}
+                        />
                     </Button>
                 </Stack>
             </Card>
