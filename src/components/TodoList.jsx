@@ -11,7 +11,7 @@ export function TodoList({ todos, handleDeleteTodo, handleCheckboxChange, handle
                     marginTop: '5vh',
                 }}
             >
-                <h2>My Todo List</h2>
+                <h2>My Power Organizer</h2>
                 <ul>
                     {todos.map((todo) => (
                         <li

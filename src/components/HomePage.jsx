@@ -19,7 +19,7 @@ export function HomePage() {
     const fetchTodos = () => {
         getTodos()
             .then((data) => {
-                console.log('data', data);
+                // console.log('data', data);
                 setTodos(data);
             })
 
@@ -29,7 +29,7 @@ export function HomePage() {
     const handleAddTodo = (todo) => {
         addTodos(todo)
             .then((newTodo) => {
-                console.log('body-ul este: ', newTodo);
+                // console.log('body-ul este: ', newTodo);
                 setTodos([...todos, newTodo]);
             })
             .catch((error) => console.error('Error adding todo:', error));

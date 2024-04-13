@@ -3,7 +3,7 @@ import './App.css';
 import { LoginPage } from './components/login-page/LoginPage';
 import { HomePage } from './components/HomePage';
 import AuthProvider from './components/login-page/AuthProvider';
-import PrivateRoute from './components/login-page/PrivateRoute';
+import { PrivateRoute } from './components/login-page/PrivateRoute';
 
 function App() {
     return (
@@ -14,6 +14,7 @@ function App() {
                         <Route path="/login/*" Component={LoginPage} />
                         <Route element={<PrivateRoute />}>
                             <Route path="/home-page" Component={HomePage} />
+                            <Route path="/ala" Component={() => <div>bubu</div>} />
                         </Route>
                         <Route path="/*" Component={LoginPage} />
                     </Routes>
