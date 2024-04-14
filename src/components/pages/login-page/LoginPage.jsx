@@ -9,7 +9,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import { grey } from '@mui/material/colors';
-import { useAuth } from '../../utils/constants';
+import { useAuth } from '../../../utils/constants';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 
@@ -73,7 +73,6 @@ export function LoginPage() {
         }));
     };
 
-    // console.log('alertMsg.open: ', alertMsg.open);
     return (
         <Box
             sx={{

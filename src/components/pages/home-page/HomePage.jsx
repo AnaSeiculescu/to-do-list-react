@@ -1,7 +1,7 @@
 import { NewTodo } from './NewTodo';
 import { useState, useEffect } from 'react';
 import { TodoList } from './TodoList';
-import { addTodos, deleteTodo, getTodos, updateTodo } from '../utils/api';
+import { addTodos, deleteTodo, getTodos, updateTodo } from '../../../utils/api';
 
 export function HomePage() {
     const [todos, setTodos] = useState([]);
