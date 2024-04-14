@@ -1,3 +1,3 @@
 export const REGEX = {
-    Alphanumeric: /\w+/g,
+    Alphanumeric: /^\w+$/,
 };
