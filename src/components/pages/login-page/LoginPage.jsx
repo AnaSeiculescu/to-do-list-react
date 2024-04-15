@@ -1,10 +1,7 @@
-// import CssBaseline from '@mui/material/CssBaseline';
-// import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
@@ -15,7 +12,6 @@ import Snackbar from '@mui/material/Snackbar';
 
 export function LoginPage() {
     console.log('reneding login page');
-    // const navigate = useNavigate();
 
     const inputsStyle = {
         marginBottom: '21px',
@@ -160,7 +156,6 @@ export function LoginPage() {
                         variant="outlined"
                         disabled={isLoading}
                         sx={{ color: 'black', border: '1px solid black', boxShadow: 3 }}
-                        // onClick={() => navigate('/home-page')}
                     >
                         Sign Up
                     </Button>
@@ -168,9 +163,7 @@ export function LoginPage() {
                         variant="contained"
                         disabled={isLoading}
                         sx={{ bgcolor: 'black', color: 'white', boxShadow: 3 }}
-                        // onClick={() => navigate('/home-page')}
                         onClick={handleSubmitEvent}
-                        // onSubmit={handleSubmitEvent}
                     >
                         {isLoading && <CircularProgress size={25} sx={{ marginRight: '7px' }} />}
                         Sign In
