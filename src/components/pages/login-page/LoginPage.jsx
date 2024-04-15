@@ -1,21 +1,17 @@
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import { grey } from '@mui/material/colors';
-import { useAuth } from '../../utils/constants';
+import { useAuth } from '../../../utils/constants';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 
 export function LoginPage() {
     console.log('reneding login page');
-    // const navigate = useNavigate();
 
     const inputsStyle = {
         marginBottom: '21px',
@@ -73,9 +69,8 @@ export function LoginPage() {
         }));
     };
 
-    // console.log('alertMsg.open: ', alertMsg.open);
     return (
-        <Box
+        <Stack
             sx={{
                 '&::before': {
                     content: '""',
@@ -105,7 +100,7 @@ export function LoginPage() {
                         textAlign: 'left',
                     }}
                 >
-                    <Box
+                    <Stack
                         sx={{
                             marginBottom: '40px',
                         }}
@@ -116,9 +111,9 @@ export function LoginPage() {
                         <Typography gutterBottom color={mySecondaryColor}>
                             Unleash your productivity
                         </Typography>
-                    </Box>
+                    </Stack>
 
-                    <Box>
+                    <Stack>
                         <Typography fontWeight="fontWeightBold" sx={labelsStyle}>
                             Username:
                         </Typography>
@@ -133,9 +128,9 @@ export function LoginPage() {
                             sx={inputsStyle}
                             fullWidth
                         />
-                    </Box>
+                    </Stack>
 
-                    <Box borderBottom={1} borderColor={mySecondaryColor} marginBottom="48px">
+                    <Stack borderBottom={1} borderColor={mySecondaryColor} marginBottom="48px">
                         <Typography fontWeight="fontWeightBold" sx={labelsStyle}>
                             Password:
                         </Typography>
@@ -153,7 +148,7 @@ export function LoginPage() {
                         <Typography gutterBottom color="primary" fontSize={14} sx={{ cursor: 'pointer' }}>
                             Forgot your password?
                         </Typography>
-                    </Box>
+                    </Stack>
                 </CardContent>
 
                 <Stack direction="row" sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -161,7 +156,6 @@ export function LoginPage() {
                         variant="outlined"
                         disabled={isLoading}
                         sx={{ color: 'black', border: '1px solid black', boxShadow: 3 }}
-                        // onClick={() => navigate('/home-page')}
                     >
                         Sign Up
                     </Button>
@@ -169,9 +163,7 @@ export function LoginPage() {
                         variant="contained"
                         disabled={isLoading}
                         sx={{ bgcolor: 'black', color: 'white', boxShadow: 3 }}
-                        // onClick={() => navigate('/home-page')}
                         onClick={handleSubmitEvent}
-                        // onSubmit={handleSubmitEvent}
                     >
                         {isLoading && <CircularProgress size={25} sx={{ marginRight: '7px' }} />}
                         Sign In
@@ -185,6 +177,6 @@ export function LoginPage() {
                     </Button>
                 </Stack>
             </Card>
-        </Box>
+        </Stack>
     );
 }

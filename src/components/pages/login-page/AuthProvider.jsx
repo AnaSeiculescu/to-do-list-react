@@ -1,4 +1,4 @@
-import { AuthContext } from '../../utils/constants';
+import { AuthContext } from '../../../utils/constants';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

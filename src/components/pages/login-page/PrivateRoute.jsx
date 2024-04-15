@@ -1,6 +1,6 @@
 // import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../../utils/constants';
+import { useAuth } from '../../../utils/constants';
 
 export function PrivateRoute() {
     console.log('Rendering private route');
