@@ -1,5 +1,5 @@
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
+// import CssBaseline from '@mui/material/CssBaseline';
+// import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -74,7 +74,7 @@ export function LoginPage() {
     };
 
     return (
-        <Box
+        <Stack
             sx={{
                 '&::before': {
                     content: '""',
@@ -104,7 +104,7 @@ export function LoginPage() {
                         textAlign: 'left',
                     }}
                 >
-                    <Box
+                    <Stack
                         sx={{
                             marginBottom: '40px',
                         }}
@@ -115,9 +115,9 @@ export function LoginPage() {
                         <Typography gutterBottom color={mySecondaryColor}>
                             Unleash your productivity
                         </Typography>
-                    </Box>
+                    </Stack>
 
-                    <Box>
+                    <Stack>
                         <Typography fontWeight="fontWeightBold" sx={labelsStyle}>
                             Username:
                         </Typography>
@@ -132,9 +132,9 @@ export function LoginPage() {
                             sx={inputsStyle}
                             fullWidth
                         />
-                    </Box>
+                    </Stack>
 
-                    <Box borderBottom={1} borderColor={mySecondaryColor} marginBottom="48px">
+                    <Stack borderBottom={1} borderColor={mySecondaryColor} marginBottom="48px">
                         <Typography fontWeight="fontWeightBold" sx={labelsStyle}>
                             Password:
                         </Typography>
@@ -152,7 +152,7 @@ export function LoginPage() {
                         <Typography gutterBottom color="primary" fontSize={14} sx={{ cursor: 'pointer' }}>
                             Forgot your password?
                         </Typography>
-                    </Box>
+                    </Stack>
                 </CardContent>
 
                 <Stack direction="row" sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -184,6 +184,6 @@ export function LoginPage() {
                     </Button>
                 </Stack>
             </Card>
-        </Box>
+        </Stack>
     );
 }
