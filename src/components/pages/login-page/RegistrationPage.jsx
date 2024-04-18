@@ -11,7 +11,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import { useNavigate } from 'react-router-dom';
 
-export function LoginPage() {
+export function RegistrationPage() {
     console.log('reneding login page');
 
     const navigate = useNavigate();
@@ -72,8 +72,8 @@ export function LoginPage() {
         }));
     };
 
-    const handleSignUp = () => {
-        navigate('/register');
+    const handleBackToSignIn = () => {
+        navigate('/login');
     };
 
     return (
@@ -113,10 +113,10 @@ export function LoginPage() {
                         }}
                     >
                         <Typography variant="h5" fontWeight="fontWeightBold">
-                            Power organizer
+                            Register acount
                         </Typography>
                         <Typography gutterBottom color={mySecondaryColor}>
-                            Unleash your productivity
+                            Enter your detaiuls below to sign up
                         </Typography>
                     </Stack>
 
@@ -137,7 +137,7 @@ export function LoginPage() {
                         />
                     </Stack>
 
-                    <Stack borderBottom={1} borderColor={mySecondaryColor} marginBottom="48px">
+                    <Stack>
                         <Typography fontWeight="fontWeightBold" sx={labelsStyle}>
                             Password:
                         </Typography>
@@ -152,9 +152,23 @@ export function LoginPage() {
                             sx={inputsStyle}
                             fullWidth
                         />
-                        <Typography gutterBottom color="primary" fontSize={14} sx={{ cursor: 'pointer' }}>
-                            Forgot your password?
+                    </Stack>
+
+                    <Stack borderBottom={1} borderColor={mySecondaryColor} marginBottom="48px">
+                        <Typography fontWeight="fontWeightBold" sx={labelsStyle}>
+                            Confirm Password:
                         </Typography>
+                        <TextField
+                            required
+                            disabled={isLoading}
+                            name="confirm password"
+                            label="Required"
+                            type="password"
+                            value={userInput.password}
+                            onChange={(event) => handleInput(event)}
+                            sx={inputsStyle}
+                            fullWidth
+                        />
                     </Stack>
                 </CardContent>
 
@@ -163,9 +177,9 @@ export function LoginPage() {
                         variant="outlined"
                         disabled={isLoading}
                         sx={{ color: 'black', border: '1px solid black', boxShadow: 3 }}
-                        onClick={handleSignUp}
+                        onClick={handleBackToSignIn}
                     >
-                        Sign Up
+                        Back To Sign In
                     </Button>
                     <Button
                         variant="contained"
@@ -174,7 +188,7 @@ export function LoginPage() {
                         onClick={handleSubmitEvent}
                     >
                         {isLoading && <CircularProgress size={25} sx={{ marginRight: '7px' }} />}
-                        Sign In
+                        Sign Up
                         <Snackbar
                             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                             open={alertMsg.open}

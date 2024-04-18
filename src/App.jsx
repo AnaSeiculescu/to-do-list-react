@@ -6,6 +6,7 @@ import AuthProvider from './components/pages/login-page/AuthProvider';
 import { PrivateRoute } from './components/pages/login-page/PrivateRoute';
 import { NotFoundPage } from './components/pages/not-found-page/NotFoundPage';
 import { RedirectToNotFound } from './components/pages/not-found-page/RedirectToNotFound';
+import { RegistrationPage } from './components/pages/login-page/RegistrationPage';
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Navigate to="/login" />} />
                         <Route path="/login" Component={LoginPage} />
+                        <Route path="/register" Component={RegistrationPage} />
                         <Route element={<PrivateRoute />}>
                             <Route path="/home-page" Component={HomePage} />
                         </Route>
