@@ -44,12 +44,15 @@ authRouter.post('/register', async (req, res) => {
         return res.status(400).send(ERROR_400.UsernameExists);
     }
 
-    DATA.users.push({
+    const user = {
+        id: DATA.users.length + 1,
         username,
         password,
-    });
+    };
 
-    return res.status(200).send();
+    DATA.users.push(user);
+
+    return res.status(201).send({ id: user.id });
 });
 
 export { authRouter };
