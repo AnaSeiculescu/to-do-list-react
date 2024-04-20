@@ -1,4 +1,5 @@
 import express from 'express';
+import { pick } from 'lodash';
 
 import { isValidPassword, isValidUsername, waitFor } from '../utils.js';
 import { ERROR_400 } from '../constants/errors.js';
@@ -52,7 +53,8 @@ authRouter.post('/register', async (req, res) => {
 
     DATA.users.push(user);
 
-    return res.status(201).send({ id: user.id });
+    const response = pick(user, ['id', 'username']);
+    return res.status(201).send(response);
 });
 
 export { authRouter };

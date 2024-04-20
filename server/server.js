@@ -78,10 +78,9 @@ app.patch('/api/todos/:id', (req, res) => {
         return;
     }
 
-    console.log('continut nou todo', todo);
     const todoIndex = todoItems.findIndex((item) => item.id === parseInt(todoId));
     todoItems[todoIndex] = { ...todoItems[todoIndex], ...todo };
-    console.log('todoItems[todoIndex]', todoItems[todoIndex]);
+
     res.json(todoItems[todoIndex]);
 });
 
