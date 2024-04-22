@@ -12,7 +12,7 @@ import Snackbar from '@mui/material/Snackbar';
 import { useNavigate } from 'react-router-dom';
 
 export function LoginPage() {
-    console.log('reneding login page');
+    // console.log('reneding login page');
 
     const navigate = useNavigate();
 
@@ -43,14 +43,14 @@ export function LoginPage() {
     };
 
     const auth = useAuth();
-    const handleLogingOnClick = () => {
+    const handleLoadingOnClick = () => {
         setIsLoading(true);
     };
     const handleSubmitEvent = (e) => {
         e.preventDefault();
 
         if (userInput.username !== '' && userInput.password !== '') {
-            handleLogingOnClick();
+            handleLoadingOnClick();
             auth.loginAction(userInput).then(({ loginSuccessfull }) => {
                 if (!loginSuccessfull) {
                     setAlertMsg({ open: true });
@@ -73,7 +73,7 @@ export function LoginPage() {
     };
 
     const handleSignUp = () => {
-        navigate('/register');
+        navigate('/registration-page');
     };
 
     return (

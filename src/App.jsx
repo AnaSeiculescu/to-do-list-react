@@ -16,7 +16,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Navigate to="/login" />} />
                         <Route path="/login" Component={LoginPage} />
-                        <Route path="/register" Component={RegistrationPage} />
+                        <Route path="/registration-page" Component={RegistrationPage} />
                         <Route element={<PrivateRoute />}>
                             <Route path="/home-page" Component={HomePage} />
                         </Route>

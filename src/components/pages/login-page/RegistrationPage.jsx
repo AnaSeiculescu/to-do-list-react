@@ -6,13 +6,13 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import { grey } from '@mui/material/colors';
-import { useAuth } from '../../../utils/constants';
+// import { useAuth } from '../../../utils/constants';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import { useNavigate } from 'react-router-dom';
 
 export function RegistrationPage() {
-    console.log('reneding login page');
+    // console.log('reneding login page');
 
     const navigate = useNavigate();
 
@@ -27,6 +27,7 @@ export function RegistrationPage() {
     const [userInput, setUserInput] = useState({
         username: '',
         password: '',
+        passwordConfirmation: '',
     });
 
     const [isLoading, setIsLoading] = useState(false);
@@ -42,26 +43,59 @@ export function RegistrationPage() {
         setAlertMsg({ open: false });
     };
 
-    const auth = useAuth();
-    const handleLogingOnClick = () => {
+    // const auth = useAuth();
+    const handleLoadingOnClick = () => {
         setIsLoading(true);
     };
-    const handleSubmitEvent = (e) => {
+    // const handleSubmitEvent = (e) => {
+    //     e.preventDefault();
+
+    //     if (userInput.username !== '' && userInput.password !== '') {
+    //         handleLogingOnClick();
+    //         auth.loginAction(userInput).then(({ loginSuccessfull }) => {
+    //             if (!loginSuccessfull) {
+    //                 setAlertMsg({ open: true });
+    //             }
+    //             setIsLoading(false);
+    //         });
+
+    //         return;
+    //     } else {
+    //         handleAlertOnClick();
+    //     }
+    // };
+
+    const submitRegisterAction = async (userRegisterInfo) => {
+        try {
+            const apiResponse = await fetch('http://localhost:3030/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userRegisterInfo),
+            });
+            const result = await apiResponse.json();
+            console.log('result: ', result);
+            if (apiResponse.status === 200) {
+                return { registerSuccessful: true };
+            }
+            throw new Error(result.message);
+        } catch (err) {
+            console.log(err);
+            return { loginSuccessful: false };
+        }
+    };
+
+    const handleSubmitRegistration = (e) => {
         e.preventDefault();
 
-        if (userInput.username !== '' && userInput.password !== '') {
-            handleLogingOnClick();
-            auth.loginAction(userInput).then(({ loginSuccessfull }) => {
-                if (!loginSuccessfull) {
-                    setAlertMsg({ open: true });
-                }
-                setIsLoading(false);
-            });
+        if (userInput.username !== '' && userInput.password !== '' && userInput.passwordConfirmation !== '') {
+            handleLoadingOnClick();
 
+            submitRegisterAction(userInput);
             return;
-        } else {
-            handleAlertOnClick();
         }
+        handleAlertOnClick();
     };
 
     const handleInput = (e) => {
@@ -116,7 +150,7 @@ export function RegistrationPage() {
                             Register acount
                         </Typography>
                         <Typography gutterBottom color={mySecondaryColor}>
-                            Enter your detaiuls below to sign up
+                            Enter your details below to sign up
                         </Typography>
                     </Stack>
 
@@ -161,10 +195,10 @@ export function RegistrationPage() {
                         <TextField
                             required
                             disabled={isLoading}
-                            name="confirm password"
+                            name="passwordConfirmation"
                             label="Required"
                             type="password"
-                            value={userInput.password}
+                            value={userInput.passwordConfirmation}
                             onChange={(event) => handleInput(event)}
                             sx={inputsStyle}
                             fullWidth
@@ -185,7 +219,7 @@ export function RegistrationPage() {
                         variant="contained"
                         disabled={isLoading}
                         sx={{ bgcolor: 'black', color: 'white', boxShadow: 3 }}
-                        onClick={handleSubmitEvent}
+                        onClick={handleSubmitRegistration}
                     >
                         {isLoading && <CircularProgress size={25} sx={{ marginRight: '7px' }} />}
                         Sign Up
