@@ -6,12 +6,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import { grey } from '@mui/material/colors';
-import { useAuth } from '../../../utils/constants';
+// import { useAuth } from '../../../utils/constants';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import { useNavigate } from 'react-router-dom';
 
-export function LoginPage() {
+export function RegistrationPage() {
     // console.log('reneding login page');
 
     const navigate = useNavigate();
@@ -27,6 +27,7 @@ export function LoginPage() {
     const [userInput, setUserInput] = useState({
         username: '',
         password: '',
+        passwordConfirmation: '',
     });
 
     const [isLoading, setIsLoading] = useState(false);
@@ -42,26 +43,59 @@ export function LoginPage() {
         setAlertMsg({ open: false });
     };
 
-    const auth = useAuth();
+    // const auth = useAuth();
     const handleLoadingOnClick = () => {
         setIsLoading(true);
     };
-    const handleSubmitEvent = (e) => {
+    // const handleSubmitEvent = (e) => {
+    //     e.preventDefault();
+
+    //     if (userInput.username !== '' && userInput.password !== '') {
+    //         handleLogingOnClick();
+    //         auth.loginAction(userInput).then(({ loginSuccessfull }) => {
+    //             if (!loginSuccessfull) {
+    //                 setAlertMsg({ open: true });
+    //             }
+    //             setIsLoading(false);
+    //         });
+
+    //         return;
+    //     } else {
+    //         handleAlertOnClick();
+    //     }
+    // };
+
+    const submitRegisterAction = async (userRegisterInfo) => {
+        try {
+            const apiResponse = await fetch('http://localhost:3030/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userRegisterInfo),
+            });
+            const result = await apiResponse.json();
+            console.log('result: ', result);
+            if (apiResponse.status === 200) {
+                return { registerSuccessful: true };
+            }
+            throw new Error(result.message);
+        } catch (err) {
+            console.log(err);
+            return { loginSuccessful: false };
+        }
+    };
+
+    const handleSubmitRegistration = (e) => {
         e.preventDefault();
 
-        if (userInput.username !== '' && userInput.password !== '') {
+        if (userInput.username !== '' && userInput.password !== '' && userInput.passwordConfirmation !== '') {
             handleLoadingOnClick();
-            auth.loginAction(userInput).then(({ loginSuccessfull }) => {
-                if (!loginSuccessfull) {
-                    setAlertMsg({ open: true });
-                }
-                setIsLoading(false);
-            });
 
+            submitRegisterAction(userInput);
             return;
-        } else {
-            handleAlertOnClick();
         }
+        handleAlertOnClick();
     };
 
     const handleInput = (e) => {
@@ -72,8 +106,8 @@ export function LoginPage() {
         }));
     };
 
-    const handleSignUp = () => {
-        navigate('/registration-page');
+    const handleBackToSignIn = () => {
+        navigate('/login');
     };
 
     return (
@@ -113,10 +147,10 @@ export function LoginPage() {
                         }}
                     >
                         <Typography variant="h5" fontWeight="fontWeightBold">
-                            Power organizer
+                            Register acount
                         </Typography>
                         <Typography gutterBottom color={mySecondaryColor}>
-                            Unleash your productivity
+                            Enter your details below to sign up
                         </Typography>
                     </Stack>
 
@@ -137,7 +171,7 @@ export function LoginPage() {
                         />
                     </Stack>
 
-                    <Stack borderBottom={1} borderColor={mySecondaryColor} marginBottom="48px">
+                    <Stack>
                         <Typography fontWeight="fontWeightBold" sx={labelsStyle}>
                             Password:
                         </Typography>
@@ -152,9 +186,23 @@ export function LoginPage() {
                             sx={inputsStyle}
                             fullWidth
                         />
-                        <Typography gutterBottom color="primary" fontSize={14} sx={{ cursor: 'pointer' }}>
-                            Forgot your password?
+                    </Stack>
+
+                    <Stack borderBottom={1} borderColor={mySecondaryColor} marginBottom="48px">
+                        <Typography fontWeight="fontWeightBold" sx={labelsStyle}>
+                            Confirm Password:
                         </Typography>
+                        <TextField
+                            required
+                            disabled={isLoading}
+                            name="passwordConfirmation"
+                            label="Required"
+                            type="password"
+                            value={userInput.passwordConfirmation}
+                            onChange={(event) => handleInput(event)}
+                            sx={inputsStyle}
+                            fullWidth
+                        />
                     </Stack>
                 </CardContent>
 
@@ -163,18 +211,18 @@ export function LoginPage() {
                         variant="outlined"
                         disabled={isLoading}
                         sx={{ color: 'black', border: '1px solid black', boxShadow: 3 }}
-                        onClick={handleSignUp}
+                        onClick={handleBackToSignIn}
                     >
-                        Sign Up
+                        Back To Sign In
                     </Button>
                     <Button
                         variant="contained"
                         disabled={isLoading}
                         sx={{ bgcolor: 'black', color: 'white', boxShadow: 3 }}
-                        onClick={handleSubmitEvent}
+                        onClick={handleSubmitRegistration}
                     >
                         {isLoading && <CircularProgress size={25} sx={{ marginRight: '7px' }} />}
-                        Sign In
+                        Sign Up
                         <Snackbar
                             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                             open={alertMsg.open}
