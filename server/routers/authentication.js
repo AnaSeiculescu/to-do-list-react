@@ -1,12 +1,14 @@
 import express from 'express';
+import ld from 'lodash';
+import jwt from 'jsonwebtoken';
 
 import { isValidPassword, isValidUsername, waitFor } from '../utils.js';
 import { ERROR_400 } from '../constants/errors.js';
 import { DATA } from '../data/users.js';
+import { SECRET_TOKEN_KEY } from '../constants/auth.js';
 
 const authRouter = express.Router();
 
-const MOCK_ACCESS_TOKEN = 'sadfkj45h4w35jh43hj5j43bhv';
 const TWO_SECONDS = 2000;
 
 authRouter.post('/sign-in', async (req, res) => {
@@ -20,7 +22,9 @@ authRouter.post('/sign-in', async (req, res) => {
         return res.status(400).send(ERROR_400.InvalidCredentials);
     }
 
-    return res.status(200).send({ token: MOCK_ACCESS_TOKEN });
+    const token = jwt.sign(ld.pick(user, ['id', 'username']), SECRET_TOKEN_KEY);
+
+    return res.status(200).send({ token });
 });
 
 authRouter.post('/register', async (req, res) => {
@@ -44,12 +48,16 @@ authRouter.post('/register', async (req, res) => {
         return res.status(400).send(ERROR_400.UsernameExists);
     }
 
-    DATA.users.push({
+    const user = {
+        id: DATA.users.length + 1,
         username,
         password,
-    });
+    };
 
-    return res.status(200).send();
+    DATA.users.push(user);
+
+    const response = ld.pick(user, ['id', 'username']);
+    return res.status(201).send(response);
 });
 
 export { authRouter };
