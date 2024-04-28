@@ -33,20 +33,13 @@ export function RegistrationPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [alertMsg, setAlertMsg] = useState({
         open: false,
+        message: '',
     });
 
-    const handleAlertOnClick = () => {
-        setAlertMsg({ open: true });
-    };
-
-    const handleAlertOnCLose = () => {
-        setAlertMsg({ open: false });
-    };
-
     // const auth = useAuth();
-    const handleLoadingOnClick = () => {
-        setIsLoading(true);
-    };
+    // const handleLoadingOnClick = () => {
+    //     setIsLoading(true);
+    // };
     // const handleSubmitEvent = (e) => {
     //     e.preventDefault();
 
@@ -76,26 +69,33 @@ export function RegistrationPage() {
             });
             const result = await apiResponse.json();
             console.log('result: ', result);
-            if (apiResponse.status === 200) {
+            if (apiResponse.status === 201) {
+                navigate('/login');
                 return { registerSuccessful: true };
             }
+            if (apiResponse.status === 400) {
+                setAlertMsg({ open: true, message: result.errorMessage });
+                // console.log('Password confirmation does not match the given password.');
+                return { registerSuccessful: false };
+            }
+
             throw new Error(result.message);
         } catch (err) {
             console.log(err);
-            return { loginSuccessful: false };
+            return { registerSuccessful: false };
         }
     };
 
-    const handleSubmitRegistration = (e) => {
+    const handleSubmitRegistration = async (e) => {
         e.preventDefault();
 
         if (userInput.username !== '' && userInput.password !== '' && userInput.passwordConfirmation !== '') {
-            handleLoadingOnClick();
-
-            submitRegisterAction(userInput);
+            setIsLoading(true);
+            await submitRegisterAction(userInput);
+            setIsLoading(false);
             return;
         }
-        handleAlertOnClick();
+        setAlertMsg({ open: true, message: 'Please provide valid input' });
     };
 
     const handleInput = (e) => {
@@ -226,8 +226,8 @@ export function RegistrationPage() {
                         <Snackbar
                             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                             open={alertMsg.open}
-                            onClose={handleAlertOnCLose}
-                            message="Please provide valid input"
+                            onClose={() => setAlertMsg({ open: false, message: '' })}
+                            message={alertMsg.message}
                             sx={{ textAlign: 'center' }}
                         />
                     </Button>
