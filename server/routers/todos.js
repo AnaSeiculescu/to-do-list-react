@@ -1,10 +1,10 @@
 import express from 'express';
 import { verifyToken } from '../middleware/authCheck.js';
+import { todos } from '../dao/todos.js';
 
 const todosRouter = express.Router();
 
 let todoItems = [];
-let nextId = 1;
 
 const isValidId = (id) => {
     return todoItems.some((item) => item.id === parseInt(id));
@@ -54,9 +54,7 @@ todosRouter.post('/', (req, res) => {
         return;
     }
 
-    const newTodo = { id: nextId, isCompleted: false, ...todo };
-    nextId++;
-    todoItems.push(newTodo);
+    const newTodo = todos.addTodo(req.user, todo);
 
     res.status(201).json(newTodo);
 });

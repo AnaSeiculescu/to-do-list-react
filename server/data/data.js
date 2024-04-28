@@ -3,13 +3,8 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 export const DEFAULT_DATA = {
-    users: [
-        {
-            id: 1,
-            username: 'ana',
-            password: 'mere',
-        },
-    ],
+    users: [],
+    todos: [],
 };
 
 const currentFilePath = fileURLToPath(import.meta.url);
