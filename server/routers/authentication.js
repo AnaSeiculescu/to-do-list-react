@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 import { isValidPassword, isValidUsername, waitFor } from '../utils.js';
 import { ERROR_400 } from '../constants/errors.js';
-import { DATA } from '../data/users.js';
+import { dbData, saveData } from '../data/data.js';
 import { SECRET_TOKEN_KEY } from '../constants/auth.js';
 
 const authRouter = express.Router();
@@ -16,7 +16,7 @@ authRouter.post('/sign-in', async (req, res) => {
 
     await waitFor(TWO_SECONDS);
 
-    const user = DATA.users.find((user) => user.username === username);
+    const user = dbData.users.find((user) => user.username === username);
 
     if (!user || user.password !== password) {
         return res.status(400).send(ERROR_400.InvalidCredentials);
@@ -44,17 +44,18 @@ authRouter.post('/register', async (req, res) => {
         return res.status(400).send(ERROR_400.PasswordMismatch);
     }
 
-    if (DATA.users.some((user) => user.username === username)) {
+    if (dbData.users.some((user) => user.username === username)) {
         return res.status(400).send(ERROR_400.UsernameExists);
     }
 
     const user = {
-        id: DATA.users.length + 1,
+        id: dbData.users.length + 1,
         username,
         password,
     };
 
-    DATA.users.push(user);
+    dbData.users.push(user);
+    saveData();
 
     const response = ld.pick(user, ['id', 'username']);
     return res.status(201).send(response);
