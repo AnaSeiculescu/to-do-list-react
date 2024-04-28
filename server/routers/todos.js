@@ -4,12 +4,6 @@ import { todos } from '../dao/todos.js';
 
 const todosRouter = express.Router();
 
-let todoItems = [];
-
-const isValidId = (id) => {
-    return todoItems.some((item) => item.id === parseInt(id));
-};
-
 const todoProperties = ['text', 'isCompleted'];
 
 const isValidTodo = (todo) => {
@@ -74,14 +68,16 @@ todosRouter.patch('/:id', (req, res) => {
 });
 
 todosRouter.delete('/:id', (req, res) => {
-    const todoId = req.params.id;
-    if (!isValidId(todoId)) {
-        res.status(404).send(`Todo with ID ${todoId} not found`);
-        return;
-    }
+    const id = parseInt(req.params.id);
+    // if (!isValidId(todoId)) {
+    //     res.status(404).send(`Todo with ID ${todoId} not found`);
+    //     return;
+    // }
 
-    todoItems = todoItems.filter((td) => td.id !== parseInt(todoId));
-    res.status(204).end();
+    // todoItems = todoItems.filter((td) => td.id !== parseInt(todoId));
+
+    todos.deleteTodo(req.user, id);
+    res.sendStatus(204);
 });
 
 export { todosRouter };

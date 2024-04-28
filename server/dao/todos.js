@@ -42,6 +42,20 @@ class Todos {
 
         return todo;
     }
+
+    deleteTodo(user, id) {
+        const index = dbData.todos.findIndex((td) => td.id === id);
+        const todo = dbData.todos[index];
+
+        if (!todo) throw 404;
+
+        if (todo.ownerUserId !== user.id) {
+            throw 403;
+        }
+
+        dbData.todos.splice(index, 1);
+        saveData();
+    }
 }
 
 export const todos = new Todos();
