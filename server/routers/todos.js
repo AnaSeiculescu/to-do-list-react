@@ -37,6 +37,7 @@ const hasAllTodoProperties = (todo) => {
 todosRouter.use(verifyToken);
 
 todosRouter.get('/', (req, res) => {
+    const todoItems = todos.getAll(req.user);
     res.json(todoItems);
 });
 
@@ -60,22 +61,16 @@ todosRouter.post('/', (req, res) => {
 });
 
 todosRouter.patch('/:id', (req, res) => {
-    const todoId = req.params.id;
-    if (!isValidId(todoId)) {
-        res.status(404).send(`Todo with ID ${todoId} not found`);
-        return;
-    }
+    const id = parseInt(req.params.id);
 
-    const todo = req.body;
-    if (!isValidTodo(todo)) {
+    if (!isValidTodo(req.body)) {
         res.status(400).send('Invalid todo. Allowed properties: text (string), isCompleted (boolean)');
         return;
     }
 
-    const todoIndex = todoItems.findIndex((item) => item.id === parseInt(todoId));
-    todoItems[todoIndex] = { ...todoItems[todoIndex], ...todo };
+    const todo = todos.updateTodo(req.user, { id, ...req.body });
 
-    res.json(todoItems[todoIndex]);
+    res.json(todo);
 });
 
 todosRouter.delete('/:id', (req, res) => {

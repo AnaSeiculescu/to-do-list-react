@@ -24,6 +24,24 @@ class Todos {
 
         return newTodo;
     }
+
+    updateTodo(user, data) {
+        const todo = dbData.todos.find((td) => td.id === data.id);
+
+        if (!todo) throw 404;
+
+        if (todo.ownerUserId !== user.id) {
+            throw 403;
+        }
+
+        for (const [key, val] of Object.entries(data)) {
+            console.log('key, val', key, val);
+            todo[key] = val;
+        }
+        saveData();
+
+        return todo;
+    }
 }
 
 export const todos = new Todos();
