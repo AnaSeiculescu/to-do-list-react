@@ -1,4 +1,5 @@
 import express from 'express';
+import { verifyToken } from '../middleware/authCheck.js';
 
 const todosRouter = express.Router();
 
@@ -32,6 +33,8 @@ const isValidTodo = (todo) => {
 const hasAllTodoProperties = (todo) => {
     return todoProperties.every((prop) => todo[prop] !== undefined);
 };
+
+todosRouter.use(verifyToken);
 
 todosRouter.get('/', (req, res) => {
     res.json(todoItems);
