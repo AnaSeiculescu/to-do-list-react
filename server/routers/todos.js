@@ -1,14 +1,8 @@
 import express from 'express';
 import { verifyToken } from '../middleware/authCheck.js';
+import { todos } from '../dao/todos.js';
 
 const todosRouter = express.Router();
-
-let todoItems = [];
-let nextId = 1;
-
-const isValidId = (id) => {
-    return todoItems.some((item) => item.id === parseInt(id));
-};
 
 const todoProperties = ['text', 'isCompleted'];
 
@@ -37,6 +31,7 @@ const hasAllTodoProperties = (todo) => {
 todosRouter.use(verifyToken);
 
 todosRouter.get('/', (req, res) => {
+    const todoItems = todos.getAll(req.user);
     res.json(todoItems);
 });
 
@@ -54,41 +49,35 @@ todosRouter.post('/', (req, res) => {
         return;
     }
 
-    const newTodo = { id: nextId, isCompleted: false, ...todo };
-    nextId++;
-    todoItems.push(newTodo);
+    const newTodo = todos.addTodo(req.user, todo);
 
     res.status(201).json(newTodo);
 });
 
 todosRouter.patch('/:id', (req, res) => {
-    const todoId = req.params.id;
-    if (!isValidId(todoId)) {
-        res.status(404).send(`Todo with ID ${todoId} not found`);
-        return;
-    }
+    const id = parseInt(req.params.id);
 
-    const todo = req.body;
-    if (!isValidTodo(todo)) {
+    if (!isValidTodo(req.body)) {
         res.status(400).send('Invalid todo. Allowed properties: text (string), isCompleted (boolean)');
         return;
     }
 
-    const todoIndex = todoItems.findIndex((item) => item.id === parseInt(todoId));
-    todoItems[todoIndex] = { ...todoItems[todoIndex], ...todo };
+    const todo = todos.updateTodo(req.user, { id, ...req.body });
 
-    res.json(todoItems[todoIndex]);
+    res.json(todo);
 });
 
 todosRouter.delete('/:id', (req, res) => {
-    const todoId = req.params.id;
-    if (!isValidId(todoId)) {
-        res.status(404).send(`Todo with ID ${todoId} not found`);
-        return;
-    }
+    const id = parseInt(req.params.id);
+    // if (!isValidId(todoId)) {
+    //     res.status(404).send(`Todo with ID ${todoId} not found`);
+    //     return;
+    // }
 
-    todoItems = todoItems.filter((td) => td.id !== parseInt(todoId));
-    res.status(204).end();
+    // todoItems = todoItems.filter((td) => td.id !== parseInt(todoId));
+
+    todos.deleteTodo(req.user, id);
+    res.sendStatus(204);
 });
 
 export { todosRouter };
