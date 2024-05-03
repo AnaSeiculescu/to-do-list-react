@@ -4,7 +4,9 @@ import { todos } from '../dao/todos.js';
 
 const todosRouter = express.Router();
 
-const todoProperties = ['text', 'isCompleted'];
+const todoProperties = ['text', 'isCompleted', 'date'];
+
+const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 
 const isValidTodo = (todo) => {
     for (const key of Object.keys(todo)) {
@@ -18,6 +20,13 @@ const isValidTodo = (todo) => {
 
         if (key === 'isCompleted' && typeof todo[key] !== 'boolean') {
             return false;
+        }
+
+        if (key === 'date') {
+            if (typeof todo[key] !== 'string') return false;
+
+            const matchesRegex = DATE_REGEX.test(todo[key]);
+            if (!matchesRegex) return false;
         }
     }
 
@@ -38,7 +47,9 @@ todosRouter.get('/', (req, res) => {
 todosRouter.post('/', (req, res) => {
     const todo = req.body;
     if (!isValidTodo(todo)) {
-        res.status(400).send('Invalid todo. Allowed properties: text (string), isCompleted (boolean)');
+        res.status(400).send(
+            'Invalid todo. Allowed properties: text (string), isCompleted (boolean), date (string YYYY-MM-DD)'
+        );
         return;
     }
 
