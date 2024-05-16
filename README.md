@@ -1,8 +1,8 @@
-# React + Vite
+#  PowerOrganizer
+### React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![image](https://github.com/AnaSeiculescu/to-do-list-react/assets/122996287/25ece539-55f9-42cc-ba1a-032fbcf59c81)
 
-Currently, two official plugins are available:
+![image](https://github.com/AnaSeiculescu/to-do-list-react/assets/122996287/9e57c883-4094-414c-ab72-80591a0dec4e)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![image](https://github.com/AnaSeiculescu/to-do-list-react/assets/122996287/01855786-171e-492b-99c6-a1729c340d9a)
