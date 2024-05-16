@@ -1,7 +1,11 @@
+import * as React from 'react';
 import { NewTodo } from './NewTodo';
 import { useState, useEffect } from 'react';
 import { TodoList } from './TodoList';
 import { addTodos, deleteTodo, getTodos, updateTodo } from '../../../utils/api';
+import { HomePageMenu } from './HomePageMenu';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 
 export function HomePage() {
     const [todos, setTodos] = useState([]);
@@ -19,7 +23,6 @@ export function HomePage() {
     const fetchTodos = () => {
         getTodos()
             .then((data) => {
-                // console.log('data', data);
                 setTodos(data);
             })
 
@@ -29,7 +32,6 @@ export function HomePage() {
     const handleAddTodo = (todo) => {
         addTodos(todo)
             .then((newTodo) => {
-                // console.log('body-ul este: ', newTodo);
                 setTodos([...todos, newTodo]);
             })
             .catch((error) => console.error('Error adding todo:', error));
@@ -61,15 +63,53 @@ export function HomePage() {
             .catch((error) => console.log('Error deleting todo:', error));
     };
 
+    const drawerWidth = 240;
+
+    const theme = useTheme();
+    const [open, setOpen] = React.useState(false);
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
+
+    const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
+        flexGrow: 2,
+        padding: theme.spacing(3),
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        marginLeft: `-${drawerWidth}px`,
+        ...(open && {
+            transition: theme.transitions.create('margin', {
+                easing: theme.transitions.easing.easeOut,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            marginLeft: 0,
+        }),
+    }));
+
     return (
-        <div>
-            <NewTodo onHandlerAddTodo={handleAddTodo} handlerChangeInput={handlerChangeInput} taskName={taskName} />
-            <TodoList
-                todos={todos}
-                handleDeleteTodo={handleDeleteTodo}
-                handleCheckboxChange={handleCheckboxChange}
-                handleUpdates={handleUpdates}
+        <Box sx={{ display: 'flex' }}>
+            <HomePageMenu
+                theme={theme}
+                open={open}
+                handleDrawerOpen={handleDrawerOpen}
+                handleDrawerClose={handleDrawerClose}
             />
-        </div>
+            <Main open={open}>
+                <NewTodo onHandlerAddTodo={handleAddTodo} handlerChangeInput={handlerChangeInput} taskName={taskName} />
+                <TodoList
+                    todos={todos}
+                    handleDeleteTodo={handleDeleteTodo}
+                    handleCheckboxChange={handleCheckboxChange}
+                    handleUpdates={handleUpdates}
+                />
+            </Main>
+        </Box>
     );
 }

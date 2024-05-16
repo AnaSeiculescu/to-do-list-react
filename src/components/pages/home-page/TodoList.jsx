@@ -6,12 +6,12 @@ export function TodoList({ todos, handleDeleteTodo, handleCheckboxChange, handle
     return (
         <div>
             <Container
-                maxWidth="sm"
+                // maxWidth="sm"
                 style={{
                     marginTop: '5vh',
                 }}
             >
-                <h2>My Power Organizer</h2>
+                <h2>My Power Organizer-My Power Organizer-My Power Organizer</h2>
                 <ul>
                     {todos.map((todo) => (
                         <li
