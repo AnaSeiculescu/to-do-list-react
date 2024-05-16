@@ -25,6 +25,7 @@ const AuthProvider = ({ children }) => {
                 body: JSON.stringify(userAndPass),
             });
             const result = await apiResponse.json();
+            console.log('raspuns la autentificare 2: ', result);
             if (apiResponse.status === 200) {
                 // setUser(result.data.userInput);
                 setToken(result.token);

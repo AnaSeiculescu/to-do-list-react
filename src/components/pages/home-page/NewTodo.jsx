@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export function NewTodo({ onHandlerAddTodo, handlerChangeInput, taskName }) {
     const handlerKeyAddTodo = (event) => {
         if (event.key === 'Enter') {
-            onHandlerAddTodo({ text: taskName, isCompleted: false });
+            onHandlerAddTodo({ text: taskName, isCompleted: false, date: '2024-05-15' });
         }
     };
     return (
@@ -17,7 +17,7 @@ export function NewTodo({ onHandlerAddTodo, handlerChangeInput, taskName }) {
                 onChange={handlerChangeInput}
                 onKeyDown={handlerKeyAddTodo}
             ></TextField>
-            <AddButton onClick={() => onHandlerAddTodo({ text: taskName, isCompleted: false })} />
+            <AddButton onClick={() => onHandlerAddTodo({ text: taskName, isCompleted: false, date: '2024-05-15' })} />
         </div>
     );
 }
