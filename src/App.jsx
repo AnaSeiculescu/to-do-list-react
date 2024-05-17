@@ -7,10 +7,11 @@ import { PrivateRoute } from './components/pages/login-page/PrivateRoute';
 import { NotFoundPage } from './components/pages/not-found-page/NotFoundPage';
 import { RedirectToNotFound } from './components/pages/not-found-page/RedirectToNotFound';
 import { RegistrationPage } from './components/pages/login-page/RegistrationPage';
+import { UserProvider } from './UserContext';
 
 function App() {
     return (
-        <div>
+        <UserProvider>
             <BrowserRouter>
                 <AuthProvider>
                     <Routes>
@@ -26,7 +27,7 @@ function App() {
                     </Routes>
                 </AuthProvider>
             </BrowserRouter>
-        </div>
+        </UserProvider>
     );
 }
 

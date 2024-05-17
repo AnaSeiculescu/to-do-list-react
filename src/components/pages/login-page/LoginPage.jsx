@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
@@ -10,10 +10,9 @@ import { useAuth } from '../../../utils/constants';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../../UserContext';
 
 export function LoginPage() {
-    // console.log('reneding login page');
-
     const navigate = useNavigate();
 
     const inputsStyle = {
@@ -24,7 +23,8 @@ export function LoginPage() {
     };
     const mySecondaryColor = grey[500];
 
-    const [userInput, setUserInput] = useState({
+    const { setUserInput } = useContext(UserContext);
+    const [localUserInput, setLocalUserInput] = useState({
         username: '',
         password: '',
     });
@@ -49,9 +49,9 @@ export function LoginPage() {
     const handleSubmitEvent = (e) => {
         e.preventDefault();
 
-        if (userInput.username !== '' && userInput.password !== '') {
+        if (localUserInput.username !== '' && localUserInput.password !== '') {
             handleLoadingOnClick();
-            auth.loginAction(userInput).then(({ loginSuccessfull }) => {
+            auth.loginAction(localUserInput).then(({ loginSuccessfull }) => {
                 if (!loginSuccessfull) {
                     setAlertMsg({ open: true });
                 }
@@ -66,10 +66,11 @@ export function LoginPage() {
 
     const handleInput = (e) => {
         const { name, value } = e.target;
-        setUserInput((prev) => ({
+        setLocalUserInput((prev) => ({
             ...prev,
             [name]: value,
         }));
+        setUserInput(localUserInput);
     };
 
     const handleSignUp = () => {
@@ -130,7 +131,7 @@ export function LoginPage() {
                             id="outlined-required"
                             name="username"
                             label="Required"
-                            value={userInput.username}
+                            value={localUserInput.username}
                             onChange={(event) => handleInput(event)}
                             sx={inputsStyle}
                             fullWidth
@@ -147,7 +148,7 @@ export function LoginPage() {
                             name="password"
                             label="Required"
                             type="password"
-                            value={userInput.password}
+                            value={localUserInput.password}
                             onChange={(event) => handleInput(event)}
                             sx={inputsStyle}
                             fullWidth

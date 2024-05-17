@@ -8,13 +8,6 @@ const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
 
     const loginAction = async (userAndPass) => {
-        /* 
-        1. face request catre api cu username si parola
-        2. din raspunsul de la api extrage token
-        3. se face update la state-ul tokenului (nu e tocmai state ca la carte)
-            tokenul se salveaza in local storage / session storage / in memorie (o variabla, gen state)
-        4. se face update la state-ul userului
-        */
         try {
             const apiResponse = await fetch('http://localhost:3030/auth/sign-in', {
                 method: 'POST',

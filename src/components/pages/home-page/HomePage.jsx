@@ -77,7 +77,7 @@ export function HomePage() {
     };
 
     const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
-        flexGrow: 2,
+        flexGrow: 1,
         padding: theme.spacing(3),
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
