@@ -25,3 +25,6 @@ dist-ssr
 
 # mock db
 server/data/db.json
+
+# ssh key
+server/ssh/*.pem
