@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
         4. se face update la state-ul userului
         */
         try {
-            const apiResponse = await fetch('http://localhost:3030/auth/sign-in', {
+            const apiResponse = await fetch('/auth/sign-in', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

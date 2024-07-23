@@ -60,7 +60,7 @@ export function RegistrationPage() {
 
     const submitRegisterAction = async (userRegisterInfo) => {
         try {
-            const apiResponse = await fetch('http://localhost:3030/auth/register', {
+            const apiResponse = await fetch('/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
