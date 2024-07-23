@@ -6,14 +6,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import { grey } from '@mui/material/colors';
-// import { useAuth } from '../../../utils/constants';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import { useNavigate } from 'react-router-dom';
 
 export function RegistrationPage() {
-    // console.log('reneding login page');
-
     const navigate = useNavigate();
 
     const inputsStyle = {
@@ -35,28 +32,6 @@ export function RegistrationPage() {
         open: false,
         message: '',
     });
-
-    // const auth = useAuth();
-    // const handleLoadingOnClick = () => {
-    //     setIsLoading(true);
-    // };
-    // const handleSubmitEvent = (e) => {
-    //     e.preventDefault();
-
-    //     if (userInput.username !== '' && userInput.password !== '') {
-    //         handleLogingOnClick();
-    //         auth.loginAction(userInput).then(({ loginSuccessfull }) => {
-    //             if (!loginSuccessfull) {
-    //                 setAlertMsg({ open: true });
-    //             }
-    //             setIsLoading(false);
-    //         });
-
-    //         return;
-    //     } else {
-    //         handleAlertOnClick();
-    //     }
-    // };
 
     const submitRegisterAction = async (userRegisterInfo) => {
         try {

@@ -6,7 +6,7 @@ export function TodoList({ todos, handleDeleteTodo, handleCheckboxChange, handle
     return (
         <div>
             <Container
-                maxWidth="sm"
+                // maxWidth="sm"
                 style={{
                     marginTop: '5vh',
                 }}
