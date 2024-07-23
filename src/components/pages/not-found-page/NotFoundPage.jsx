@@ -52,7 +52,7 @@ export function NotFoundPage() {
                 paddingBottom: '30px',
                 '&::before': {
                     content: '""',
-                    backgroundImage: 'url(../../pictures/page_not_found.jpg)',
+                    backgroundImage: 'url(pictures/page_not_found.jpg)',
                     width: '100vw',
                     height: '100vh',
                     backgroundPosition: 'center',

@@ -81,7 +81,7 @@ export function LoginPage() {
             sx={{
                 '&::before': {
                     content: '""',
-                    backgroundImage: 'url(../../pictures/todo_image.jpeg)',
+                    backgroundImage: 'url(pictures/todo_image.jpeg)',
                     width: '100vw',
                     height: '100vh',
                     backgroundPosition: 'center',
