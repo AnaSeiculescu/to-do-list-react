@@ -9,6 +9,8 @@
 
 ### server setup
 
+##### old setup
+
 -   the app is served using nginx
 -   find the configuration files in `/etc/nginx/sites-available`. current config file is `valle.com`
 -   they should be symlinked to the `sites-enabled` folder using the command `ln -sf /path/to/file /path/to/symlink`
@@ -20,6 +22,11 @@
     `sudo systemctl status nginx`
 -   use `sudo netstat -ltnp` to check which ports are in use.
 
+##### new setup
+
+-   static files and server are both served with express
+-   to keep the server running after closing the terminal, `forver` is used
+
 ### deployment steps
 
 ### frontend
@@ -30,5 +37,7 @@
 
 ### backend
 
-1. kill process listening on port 3030 (the node server)
-1. from folder `to-do-list-react` run `npm run server:start`
+1. `sudo bash`
+1. check the process on which the application is running with `forever list`
+1. stop the process using the index given (`forever stop 0`)
+1. navigate to `/to-do-list-react` and restart the process using `forever start server/server.js `
