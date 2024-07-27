@@ -29,8 +29,8 @@ console.log('process.env.APP_ENV', process.env.APP_ENV);
 // eslint-disable-next-line no-undef
 if (process.env.APP_ENV === 'production') {
     const sslOptions = {
-        key: fs.readFileSync('/etc/letsencrypt/live/yourdomain.com/privkey.pem'),
-        cert: fs.readFileSync('/etc/letsencrypt/live/yourdomain.com/fullchain.pem'),
+        key: fs.readFileSync('/etc/letsencrypt/live/power-organizer.com/privkey.pem'),
+        cert: fs.readFileSync('/etc/letsencrypt/live/power-organizer.com/fullchain.pem'),
     };
 
     // Start the HTTPS server
