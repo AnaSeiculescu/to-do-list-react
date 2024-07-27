@@ -31,13 +31,15 @@
 
 ### frontend
 
+1. `sudo bash`
 1. `cd to-do-list-react`
 1. `git pull`
 1. `npm run build`
 
 ### backend
 
-1. `sudo bash`
+1. `sudo bash` (everything is installed as root)
+1. make sure the environment variable `APP_ENV` is set to **production**
 1. check the process on which the application is running with `forever list`
 1. stop the process using the index given (`forever stop 0`)
 1. navigate to `/to-do-list-react` and restart the process using `forever start server/server.js `
