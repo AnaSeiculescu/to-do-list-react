@@ -1,4 +1,4 @@
-import { AuthContext } from '../../../utils/constants';
+import { AuthContext, URL_AUTH } from '../../../utils/constants';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
 
     const loginAction = async (userAndPass) => {
         try {
-            const apiResponse = await fetch('/auth/sign-in', {
+            const apiResponse = await fetch(URL_AUTH + 'sign-in', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -45,10 +45,7 @@ if (process.env.APP_ENV === 'production') {
         console.log('HTTP Server running on port 80 and redirecting to HTTPS');
     });
 } else {
-    app.listen(80, () => {
-        console.log(`Example app listening on port 80`);
-    });
-    app.listen(443, () => {
-        console.log(`Example app listening on port 443`);
+    app.listen(3050, () => {
+        console.log(`Example app listening on port 3050`);
     });
 }
