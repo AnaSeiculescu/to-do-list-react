@@ -9,12 +9,6 @@ import Box from '@mui/material/Box';
 
 export function HomePage() {
     const [todos, setTodos] = useState([]);
-    const [taskName, setTaskName] = useState('');
-
-    function handlerChangeInput(event) {
-        const input = event.target.value;
-        setTaskName(input);
-    }
 
     useEffect(() => {
         fetchTodos();
@@ -102,7 +96,7 @@ export function HomePage() {
                 handleDrawerClose={handleDrawerClose}
             />
             <Main open={open}>
-                <NewTodo onHandlerAddTodo={handleAddTodo} handlerChangeInput={handlerChangeInput} taskName={taskName} />
+                <NewTodo onHandlerAddTodo={handleAddTodo} />
                 <TodoList
                     todos={todos}
                     handleDeleteTodo={handleDeleteTodo}
