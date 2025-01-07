@@ -34,6 +34,7 @@
 1. `sudo bash`
 1. `cd to-do-list-react`
 1. `git pull`
+1. check `.env` file to make sure it is correctly configured
 1. `npm run build`
 
 ### backend
@@ -43,3 +44,13 @@
 1. check the process on which the application is running with `forever list`
 1. stop the process using the index given (`forever stop 0`)
 1. navigate to `/to-do-list-react` and restart the process using `forever start server/server.js `
+
+### renewing SSL certificates (HTTPS)
+
+1. ssh into the lightsail machine
+1. run `sudo bash`
+1. You can use `certbot certificates` to list current certificates
+1. Stop the server using `forever`. Use `forver list` to find the process id and `forever stop <pid>` to stop it.
+1. Use `certbot renew` to renew certificates
+1. Ensure that 'APP_ENV' is set to 'production' in `.env`
+1. Navigate to `/to-do-list-react` and restart the process using `forever start server/server.js`
